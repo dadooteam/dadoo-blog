@@ -1,4 +1,2 @@
 dadoo-blog
 ==========
-
-simple blog
