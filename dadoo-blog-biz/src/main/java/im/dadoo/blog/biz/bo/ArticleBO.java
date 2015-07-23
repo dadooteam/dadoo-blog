@@ -146,17 +146,17 @@ public class ArticleBO {
     return this.taDAO.sizeByTagId(tagId);
   }
 
-  public long maxPagecount(int pagesize) {
+  public int maxPagecount(int pagesize) {
     checkArgument(pagesize > 0);
-    long size = this.articleDAO.size();
-    return 1 + (size - 1) / pagesize;
+    Long size = this.articleDAO.size();
+    return 1 + (size.intValue() - 1) / pagesize;
   }
   
-  public long maxPagecountByTagId(long tagId, int pagesize) {
+  public int maxPagecountByTagId(long tagId, int pagesize) {
     checkArgument(tagId > 0L);
     checkArgument(pagesize > 0);
-    long size = this.taDAO.sizeByTagId(tagId);
-    return 1 + (size - 1) / pagesize;
+    Long size = this.taDAO.sizeByTagId(tagId);
+    return 1 + (size.intValue() - 1) / pagesize;
   }
   
   public ArticleDTO toDTO(Article article) {

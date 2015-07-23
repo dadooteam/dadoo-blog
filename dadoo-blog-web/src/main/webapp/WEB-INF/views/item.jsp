@@ -4,7 +4,7 @@
 
 <%
   ArticleDTO articleDTO = (ArticleDTO)request.getAttribute("articleDTO");
-  Pair<Article, Article> pn = (Pair<Article, Article>)request.getAttribute("prev-next");
+  Pair<ArticleDTO, ArticleDTO> pn = (Pair<ArticleDTO, ArticleDTO>)request.getAttribute("prev-next");
 %>
 
 <!DOCTYPE html>
@@ -44,10 +44,10 @@
             <% if (pn != null) { %>
             <ul class="pager">
               <% if (pn.getLeft() != null) { %>
-                <li class="pull-left"><a href="/article/<%= pn.getLeft().getId() %>">Prev:<%= pn.getLeft().getTitle() %></a></li>
+                <li class="pull-left"><a href="/article/<%= pn.getLeft().getArticle().getId() %>">Prev:<%= pn.getLeft().getArticle().getTitle() %></a></li>
               <% } %>
               <% if (pn.getRight() != null) { %>
-                <li class="pull-right"><a href="/article/<%= pn.getRight().getId() %>">Next:<%= pn.getRight().getTitle() %></a></li>
+                <li class="pull-right"><a href="/article/<%= pn.getRight().getArticle().getId() %>">Next:<%= pn.getRight().getArticle().getTitle() %></a></li>
               <% } %>
             </ul>
             <% } %>

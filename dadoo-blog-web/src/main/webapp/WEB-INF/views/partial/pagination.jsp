@@ -2,8 +2,8 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 
 <%
-  Integer cur = (Integer)request.getAttribute("cur-pagecount");
-  Integer max = (Integer)request.getAttribute("max-pagecount");
+  Integer cur = (Integer)request.getAttribute("curPagecount");
+  Integer max = (Integer)request.getAttribute("maxPagecount");
 %>
 <ul class="pagination">
   <% if (cur > 1) { %>
