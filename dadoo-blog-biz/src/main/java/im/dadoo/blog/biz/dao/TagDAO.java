@@ -23,7 +23,7 @@ import org.springframework.stereotype.Repository;
  * @author codekitten
  */
 @Repository
-public class TagDAO1 {
+public class TagDAO {
 
   private static final String INSERT_SQL
           = "INSERT INTO t_tag(name) VALUES(:name)";
