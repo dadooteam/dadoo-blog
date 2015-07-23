@@ -10,7 +10,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.common.collect.Lists;
 import im.dadoo.blog.biz.dao.ArticleDAO;
 import im.dadoo.blog.biz.dao.TagArticleDAO;
-import im.dadoo.blog.biz.dao.TagDAO;
+import im.dadoo.blog.biz.dao.TagDAO1;
 import im.dadoo.blog.biz.dto.ArticleDTO;
 import im.dadoo.blog.domain.Article;
 import im.dadoo.blog.domain.Tag;
@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 public class ArticleBO {
 
   @Resource
-  private TagDAO tagDAO;
+  private TagDAO1 tagDAO;
 
   @Resource
   private ArticleDAO articleDAO;

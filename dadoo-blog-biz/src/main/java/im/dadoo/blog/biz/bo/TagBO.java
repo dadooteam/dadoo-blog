@@ -8,7 +8,7 @@ package im.dadoo.blog.biz.bo;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import im.dadoo.blog.biz.dao.TagArticleDAO;
-import im.dadoo.blog.biz.dao.TagDAO;
+import im.dadoo.blog.biz.dao.TagDAO1;
 import im.dadoo.blog.domain.Tag;
 import java.util.List;
 import javax.annotation.Resource;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class TagBO {
 
   @Resource
-  private TagDAO tagDAO;
+  private TagDAO1 tagDAO;
 
   @Resource
   private TagArticleDAO taDAO;
