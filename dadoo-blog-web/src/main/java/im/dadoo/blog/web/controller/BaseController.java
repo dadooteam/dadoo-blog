@@ -6,10 +6,10 @@
 
 package im.dadoo.blog.web.controller;
 
-import im.dadoo.blog.biz.service.ArticleService;
+import im.dadoo.blog.biz.bo.ArticleBO;
 import im.dadoo.blog.web.service.ConfigService;
-import im.dadoo.blog.biz.service.LinkService;
-import im.dadoo.blog.biz.service.TagService;
+import im.dadoo.blog.biz.bo.LinkBO;
+import im.dadoo.blog.biz.bo.TagBO;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -20,13 +20,13 @@ import javax.servlet.http.HttpSession;
 public class BaseController {
   
   @Resource
-  protected ArticleService articleService;
+  protected ArticleBO articleService;
   
   @Resource
-  protected TagService tagService;
+  protected TagBO tagService;
   
   @Resource
-  protected LinkService linkService;
+  protected LinkBO linkService;
   
   @Resource
   protected ConfigService configService;

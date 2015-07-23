@@ -57,7 +57,7 @@ public class ArticleController extends BaseController {
   public String save(@RequestParam String title, @RequestParam String html,
           @RequestParam(required = false) List<Integer> tagIds) {
     if (title != null && html != null) {
-      this.articleService.add(title, html, tagIds);
+      this.articleService.insert(title, html, tagIds);
       return "redirect:/admin/article";
     } else {
       return "redirect:/404";
@@ -68,7 +68,7 @@ public class ArticleController extends BaseController {
   public String update(@PathVariable Integer id, @RequestParam String title, 
           @RequestParam String html, @RequestParam(required = false) List<Integer> tagIds) {
     if (title != null && html != null) {
-      this.articleService.update(id, title, html, tagIds);
+      this.articleService.updateById(id, title, html, tagIds);
       return "redirect:/admin/article";
     } else {
       return "redirect:/404";

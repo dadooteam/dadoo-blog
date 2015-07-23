@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
  * @author shuwen.zsw
  */
 @Component
-public class SizeRowMapper implements RowMapper<Integer> {
+public class SizeRowMapper implements RowMapper<Long> {
 
   @Override
-  public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-    return rs.getInt("size");
+  public Long mapRow(ResultSet rs, int rowNum) throws SQLException {
+    return rs.getLong("size");
   }
   
 }

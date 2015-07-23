@@ -14,23 +14,23 @@ public class TagArticle implements Serializable {
 
   private static final long serialVersionUID = 4275456959395318081L;
 
-  private Integer tagId;
+  private long tagId;
 
-  private Integer articleId;
+  private long articleId;
 
-  public Integer getTagId() {
+  public long getTagId() {
     return tagId;
   }
 
-  public void setTagId(Integer tagId) {
+  public void setTagId(long tagId) {
     this.tagId = tagId;
   }
 
-  public Integer getArticleId() {
+  public long getArticleId() {
     return articleId;
   }
 
-  public void setArticleId(Integer articleId) {
+  public void setArticleId(long articleId) {
     this.articleId = articleId;
   }
 

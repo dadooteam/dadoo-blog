@@ -22,8 +22,8 @@ public class TagArticleRowMapper implements RowMapper<TagArticle> {
   @Override
   public TagArticle mapRow(ResultSet rs, int rowNum) throws SQLException {
     TagArticle ta = new TagArticle();
-      ta.setTagId(rs.getInt("tag_id"));
-      ta.setArticleId(rs.getInt("article_id"));
+      ta.setTagId(rs.getLong("tag_id"));
+      ta.setArticleId(rs.getLong("article_id"));
       return ta;
   }
   

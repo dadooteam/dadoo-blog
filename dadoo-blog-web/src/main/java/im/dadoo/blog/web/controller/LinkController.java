@@ -26,7 +26,7 @@ public class LinkController extends BaseController {
     if (!url.startsWith("http://")) {
       return "redirect:/404";
     }
-    Link link = this.linkService.add(name, url, description);
+    Link link = this.linkService.insert(name, url, description);
     if (link != null) {
       return "redirect:/admin/link";
     } else {
@@ -50,7 +50,7 @@ public class LinkController extends BaseController {
       if (description != null) {
         link.setDescription(description);
       }
-      this.linkService.update(id, link.getName(), link.getUrl(), link.getDescription());
+      this.linkService.updateById(id, link.getName(), link.getUrl(), link.getDescription());
       return "redirect:/admin/link";
     } else {
       return "redirect:/404";

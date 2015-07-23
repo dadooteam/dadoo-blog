@@ -5,6 +5,7 @@
 package im.dadoo.blog.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -14,7 +15,7 @@ public class Article implements Serializable {
 
   private static final long serialVersionUID = -1312159335915767619L;
 
-  private Integer id;
+  private long id;
 
   private String title;
 
@@ -22,18 +23,18 @@ public class Article implements Serializable {
 
   private String text;
 
-  private Long publishDatetime;
+  private long gmtCreate;
 
-  private Integer click;
+  private int click;
 
   public Article() {
   }
 
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -61,25 +62,25 @@ public class Article implements Serializable {
     this.text = text;
   }
 
-  public Long getPublishDatetime() {
-    return publishDatetime;
+  public long getGmtCreate() {
+    return gmtCreate;
   }
 
-  public void setPublishDatetime(Long publishDatetime) {
-    this.publishDatetime = publishDatetime;
+  public void setGmtCreate(long gmtCreate) {
+    this.gmtCreate = gmtCreate;
   }
 
-  public Integer getClick() {
+  public int getClick() {
     return click;
   }
 
-  public void setClick(Integer click) {
+  public void setClick(int click) {
     this.click = click;
   }
 
   @Override
   public String toString() {
-    return "Article{" + "id=" + id + ", title=" + title + ", html=" + html + ", text=" + text + ", publishDatetime=" + publishDatetime + ", click=" + click + '}';
+    return "Article{" + "id=" + id + ", title=" + title + ", html=" + html + ", text=" + text + ", gmtCreate=" + new Date(gmtCreate) + ", click=" + click + '}';
   }
 
 }

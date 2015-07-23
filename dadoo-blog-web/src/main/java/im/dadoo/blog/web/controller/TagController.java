@@ -23,7 +23,7 @@ public class TagController extends BaseController {
   @RequestMapping(value = "/admin/tag/add", method = RequestMethod.POST)
   public String save(@RequestParam String name) {
     if (this.tagService.findByName(name) == null) {
-      this.tagService.add(name);
+      this.tagService.insert(name);
       return "redirect:/admin/tag";
     } else {
       return "redirect:/404";

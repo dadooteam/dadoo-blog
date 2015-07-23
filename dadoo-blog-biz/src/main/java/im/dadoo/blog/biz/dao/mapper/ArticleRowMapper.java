@@ -22,11 +22,11 @@ public class ArticleRowMapper implements RowMapper<Article> {
   @Override
   public Article mapRow(ResultSet rs, int rowNum) throws SQLException {
     Article article = new Article();
-      article.setId(rs.getInt("id"));
+      article.setId(rs.getLong("id"));
       article.setTitle(rs.getString("title"));
       article.setHtml(rs.getString("html"));
       article.setText(rs.getString("text"));
-      article.setPublishDatetime(rs.getLong("publish_datetime"));
+      article.setGmtCreate(rs.getLong("gmt_create"));
       article.setClick(rs.getInt("click"));
       return article;
   }

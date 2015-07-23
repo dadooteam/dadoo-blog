@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package im.dadoo.blog.biz.dao.mapper;
 
 import im.dadoo.blog.domain.Link;
@@ -22,11 +21,11 @@ public class LinkRowMapper implements RowMapper<Link> {
   @Override
   public Link mapRow(ResultSet rs, int rowNum) throws SQLException {
     Link link = new Link();
-      link.setId(rs.getInt("id"));
-      link.setName(rs.getString("name"));
-      link.setUrl(rs.getString("url"));
-      link.setDescription(rs.getString("description"));
-      return link;
+    link.setId(rs.getLong("id"));
+    link.setName(rs.getString("name"));
+    link.setUrl(rs.getString("url"));
+    link.setDescription(rs.getString("description"));
+    return link;
   }
-  
+
 }

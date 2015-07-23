@@ -14,7 +14,7 @@ public class Link implements Serializable {
 
   private static final long serialVersionUID = -6090338071771675276L;
 
-  private Integer id;
+  private long id;
 
   private String name;
 
@@ -22,11 +22,11 @@ public class Link implements Serializable {
 
   private String description;
 
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(long id) {
     this.id = id;
   }
 

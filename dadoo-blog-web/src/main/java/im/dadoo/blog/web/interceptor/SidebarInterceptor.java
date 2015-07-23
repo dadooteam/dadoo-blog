@@ -7,10 +7,10 @@
 package im.dadoo.blog.web.interceptor;
 
 import im.dadoo.blog.domain.Tag;
-import im.dadoo.blog.biz.service.ArticleService;
+import im.dadoo.blog.biz.bo.ArticleBO;
 import im.dadoo.blog.web.service.ConfigService;
-import im.dadoo.blog.biz.service.LinkService;
-import im.dadoo.blog.biz.service.TagService;
+import im.dadoo.blog.biz.bo.LinkBO;
+import im.dadoo.blog.biz.bo.TagBO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
@@ -29,16 +29,16 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 public class SidebarInterceptor extends HandlerInterceptorAdapter {
 
   @Resource
-  private ArticleService articleService;
+  private ArticleBO articleService;
   
   @Resource
-  private TagService tagService;
+  private TagBO tagService;
   
   @Resource
   private ConfigService configService;
   
   @Resource
-  private LinkService linkService;
+  private LinkBO linkService;
 
   @Override
   public void postHandle(HttpServletRequest hsr, HttpServletResponse hsr1, Object o, ModelAndView mav) throws Exception {
@@ -53,7 +53,7 @@ public class SidebarInterceptor extends HandlerInterceptorAdapter {
   
   private void renderMostVisitArticles(ModelMap map) {
     map.addAttribute("most-visit-articles", 
-            this.articleService.listMostVisitArticles(this.configService.getMostVisitArticleSize()));
+            this.articleService.listMostVisitedArticles(this.configService.getMostVisitArticleSize()));
   }
   
   private void renderTagWell(ModelMap map) {
