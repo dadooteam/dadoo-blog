@@ -6,7 +6,10 @@
 
 package im.dadoo.blog.web.controller;
 
-import im.dadoo.blog.domain.Link;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,46 +23,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LinkController extends BaseController {
   
+  private static final Logger logger = LoggerFactory.getLogger(LinkController.class);
+  
+  private static final Logger elogger = LoggerFactory.getLogger(Exception.class);
+  
   @RequestMapping(value = "/admin/link/add", method = RequestMethod.POST)
   public String save(@RequestParam String name, @RequestParam String url, 
           @RequestParam(required = false) String description) {
-    if (!url.startsWith("http://")) {
-      return "redirect:/404";
+    String result = "redirect:/admin/link";
+    try {
+      checkNotNull(name);
+      checkNotNull(url);
+      this.linkBO.insert(name, url, description);
+    } catch (Exception e) {
+      logger.error(e.getLocalizedMessage());
+      elogger.error("ERROR", e);
+      result = "redirect:/404";
     }
-    Link link = this.linkService.insert(name, url, description);
-    if (link != null) {
-      return "redirect:/admin/link";
-    } else {
-      return "redirect:/404";
-    }
+    return result;
   }
   
   @RequestMapping(value = "/admin/link/{id}/update", method = RequestMethod.POST)
-  public String update(@PathVariable Integer id, 
-          @RequestParam(required = false) String name,
-          @RequestParam(required = false) String url,
-          @RequestParam(required = false) String description) {
-    Link link = this.linkService.findById(id);
-    if (link != null) {
-      if (name != null) {
-        link.setName(name);
-      }
-      if (url != null) {
-        link.setUrl(url);
-      }
-      if (description != null) {
-        link.setDescription(description);
-      }
-      this.linkService.updateById(id, link.getName(), link.getUrl(), link.getDescription());
-      return "redirect:/admin/link";
-    } else {
-      return "redirect:/404";
+  public String update(@PathVariable long id, 
+          @RequestParam String name, @RequestParam String url, @RequestParam String description) {
+    String result = "redirect:/admin/link";
+    try {
+      checkArgument(id > 0L);
+      this.linkBO.updateById(id, name, url, description);
+    } catch (Exception e) {
+      logger.error(e.getLocalizedMessage());
+      elogger.error("ERROR", e);
+      result = "redirect:/404";
     }
+    return result;
   }
   
   @RequestMapping(value = "/admin/link/{id}/delete", method = RequestMethod.GET)
-  public String deleteById(@PathVariable Integer id) {
-    this.linkService.deleteById(id);
-    return "redirect:/admin/link";
+  public String deleteById(@PathVariable long id) {
+    String result = "redirect:/admin/link";
+    try {
+      checkArgument(id > 0L);
+      this.linkBO.deleteById(id);
+    } catch (Exception e) {
+      logger.error(e.getLocalizedMessage());
+      elogger.error("ERROR", e);
+      result = "redirect:/404";
+    }
+    return result;
   }
 }

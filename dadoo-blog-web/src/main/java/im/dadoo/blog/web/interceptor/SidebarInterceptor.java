@@ -24,21 +24,21 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
  *
- * @author shuwen.zsw
+ * @author codekitten
  */
 public class SidebarInterceptor extends HandlerInterceptorAdapter {
 
   @Resource
-  private ArticleBO articleService;
+  private ArticleBO articleBO;
   
   @Resource
-  private TagBO tagService;
+  private TagBO tagBO;
   
   @Resource
   private ConfigService configService;
   
   @Resource
-  private LinkBO linkService;
+  private LinkBO linkBO;
 
   @Override
   public void postHandle(HttpServletRequest hsr, HttpServletResponse hsr1, Object o, ModelAndView mav) throws Exception {
@@ -53,21 +53,21 @@ public class SidebarInterceptor extends HandlerInterceptorAdapter {
   
   private void renderMostVisitArticles(ModelMap map) {
     map.addAttribute("most-visit-articles", 
-            this.articleService.listMostVisitedArticles(this.configService.getMostVisitArticleSize()));
+            this.articleBO.listMostVisitedArticles(this.configService.getMostVisitArticleSize()));
   }
   
   private void renderTagWell(ModelMap map) {
-    List<Tag> tags = this.tagService.list();
+    List<Tag> tags = this.tagBO.list();
     if (tags != null && !tags.isEmpty()) {
-      List<Pair<Tag, Integer>> pairs = new ArrayList<>();
+      List<Pair<Tag, Long>> pairs = new ArrayList<>();
       for (Tag tag : tags) {
-        pairs.add(ImmutablePair.of(tag, this.tagService.sizeByTagId(tag.getId())));
+        pairs.add(ImmutablePair.of(tag, this.tagBO.sizeByTagId(tag.getId())));
       }
       map.addAttribute("tag-size-pairs", pairs);
     }
   }
   
   private void renderLinks(ModelMap map) {
-    map.addAttribute("links", this.linkService.list());
+    map.addAttribute("links", this.linkBO.list());
   }
 }

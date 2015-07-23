@@ -1,19 +1,19 @@
 <%@page language="java" contentType="text/html;charset=UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %> 
-<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*" %>
+<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*,im.dadoo.blog.biz.dto.*" %>
 
 <%
-  List<Pair<Article, List<Tag>>> pairs = (List<Pair<Article, List<Tag>>>)request.getAttribute("article-tags-pairs");
-  Tag curTag = (Tag)request.getAttribute("current-tag");
+  List<ArticleDTO> articleDTOs = (List<ArticleDTO>)request.getAttribute("articleDTOs");
+  Tag currentTag = (Tag)request.getAttribute("currentTag");
 %>
 
 <!DOCTYPE html>
 <html lang="zh_cn">
 <head>
   <meta name="description" content="blog">
-  <% if (curTag != null) { %>
+  <% if (currentTag != null) { %>
     <jsp:include page="partial/head.jsp" flush="true">
-      <jsp:param name="title" value="<%= curTag.getName() %>" />
+      <jsp:param name="title" value="<%= currentTag.getName() %>" />
     </jsp:include>
   <% } else { %>
     <jsp:include page="partial/head.jsp" flush="true">
@@ -27,22 +27,22 @@
   <div class="container">
     <div class="row">
       <div class="col-md-9">
-        <% if (curTag != null) { %>
-          <h4><span class="label label-success"><%= curTag.getName() %></span></h4>
+        <% if (currentTag != null) { %>
+          <h4><span class="label label-success"><%= currentTag.getName() %></span></h4>
         <% } %>
-        <% if (pairs != null) { %>
-          <% for (Pair<Article, List<Tag>> pair : pairs) { %>
-          <div id="article-<%= pair.getLeft().getId() %>" class="panel panel-default">
+        <% if (articleDTOs != null) { %>
+          <% for (ArticleDTO articleDTO : articleDTOs) { %>
+          <div id="article-<%= articleDTO.getArticle().getId() %>" class="panel panel-default">
             <div class="panel-heading">
-              <h1 class="panel-title"><a href="/article/<%= pair.getLeft().getId() %>"><%= pair.getLeft().getTitle() %></a></h1>
+              <h1 class="panel-title"><a href="/article/<%= articleDTO.getArticle().getId() %>"><%= articleDTO.getArticle().getTitle() %></a></h1>
               <h6 class="panel-meta">
-                <span class="glyphicon glyphicon-calendar"></span><span class="meta-content"><%= DateFormatUtils.format(pair.getLeft().getPublishDatetime(), "yyyy-MM-dd HH:mm", TimeZone.getTimeZone("GMT+8")) %></span>
-                <span class="glyphicon glyphicon-eye-open"></span><span class="meta-content"><%= pair.getLeft().getClick() %>次点击</span>
-                <span class="glyphicon glyphicon-comment"></span><span class="meta-content"><a href="/article/<%= pair.getLeft().getId() %>#disqus_thread"></a>条评论</span>
+                <span class="glyphicon glyphicon-calendar"></span><span class="meta-content"><%= DateFormatUtils.format(articleDTO.getArticle().getGmtCreate(), "yyyy-MM-dd HH:mm", TimeZone.getTimeZone("GMT+8")) %></span>
+                <span class="glyphicon glyphicon-eye-open"></span><span class="meta-content"><%= articleDTO.getArticle().getClick() %>次点击</span>
+                <span class="glyphicon glyphicon-comment"></span><span class="meta-content"><a href="/article/<%= articleDTO.getArticle().getId() %>#disqus_thread"></a>条评论</span>
                 <span class="glyphicon glyphicon-folder-open"></span>
                 <span class="meta-content">
-                  <% if (pair.getRight() != null && !pair.getRight().isEmpty()) { %>
-                    <% for (Tag tag : pair.getRight()) { %>
+                  <% if (articleDTO.getTags() != null && !articleDTO.getTags().isEmpty()) { %>
+                    <% for (Tag tag : articleDTO.getTags()) { %>
                       &nbsp;<a href="/tag/<%= tag.getId() %>"><%= tag.getName() %></a>
                     <% } %>
                   <% } %>
@@ -50,12 +50,12 @@
               </h6>
             </div>
             <div class="panel-body">
-              <% if (pair.getLeft().getText().length() < 245) { %>
-                <%= pair.getLeft().getText() %>
-                <div class="read-more"><a class="btn btn-default btn-xs" href="/article/<%= pair.getLeft().getId() %>">Read More</a></div>
+              <% if (articleDTO.getArticle().getText().length() < 245) { %>
+                <%= articleDTO.getArticle().getText() %>
+                <div class="read-more"><a class="btn btn-default btn-xs" href="/article/<%= articleDTO.getArticle().getId() %>">Read More</a></div>
               <% } else { %>
-                <%= pair.getLeft().getText().substring(0, 245) %>
-                <div class="read-more"><a class="btn btn-default btn-xs" href="/article/<%= pair.getLeft().getId() %>">Read More</a></div>
+                <%= articleDTO.getArticle().getText().substring(0, 245) %>
+                <div class="read-more"><a class="btn btn-default btn-xs" href="/article/<%= articleDTO.getArticle().getId() %>">Read More</a></div>
               <% } %>
             </div>
           </div>

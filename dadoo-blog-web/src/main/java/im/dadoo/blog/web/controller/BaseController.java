@@ -20,13 +20,13 @@ import javax.servlet.http.HttpSession;
 public class BaseController {
   
   @Resource
-  protected ArticleBO articleService;
+  protected ArticleBO articleBO;
   
   @Resource
-  protected TagBO tagService;
+  protected TagBO tagBO;
   
   @Resource
-  protected LinkBO linkService;
+  protected LinkBO linkBO;
   
   @Resource
   protected ConfigService configService;

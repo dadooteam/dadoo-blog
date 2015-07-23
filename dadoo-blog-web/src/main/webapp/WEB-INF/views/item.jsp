@@ -1,9 +1,9 @@
 <%@page language="java" contentType="text/html;charset=UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %> 
-<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*" %>
+<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*,im.dadoo.blog.biz.dto.*" %>
 
 <%
-  Pair<Article, List<Tag>> pair = (Pair<Article, List<Tag>>)request.getAttribute("pair");
+  ArticleDTO articleDTO = (ArticleDTO)request.getAttribute("articleDTO");
   Pair<Article, Article> pn = (Pair<Article, Article>)request.getAttribute("prev-next");
 %>
 
@@ -12,7 +12,7 @@
 <head>
   <meta name="description" content="blog">
   <jsp:include page="partial/head.jsp" flush="true">
-    <jsp:param name="title" value="<%= pair.getLeft().getTitle() %>" />
+    <jsp:param name="title" value="<%= articleDTO.getArticle().getTitle() %>" />
   </jsp:include>
 </head>
 <body>
@@ -20,25 +20,25 @@
   <div class="container">
     <div class="row">
       <div class="col-md-9">
-        <% if (pair != null) { %>
-          <div id="article-<%= pair.getLeft().getId() %>" class="panel panel-default">
+        <% if (articleDTO != null) { %>
+        <div id="article-<%= articleDTO.getArticle().getId() %>" class="panel panel-default">
             <div class="panel-heading">
-              <h1 class="panel-title"><%= pair.getLeft().getTitle() %></h1>
+              <h1 class="panel-title"><%= articleDTO.getArticle().getTitle() %></h1>
               <h6 class="panel-meta">
-                <span class="glyphicon glyphicon-calendar"></span><span class="meta-content"><%= DateFormatUtils.format(pair.getLeft().getPublishDatetime(), "yyyy-MM-dd HH:mm", TimeZone.getTimeZone("GMT+8")) %></span>
-                <span class="glyphicon glyphicon-eye-open"></span><span class="meta-content"><%= pair.getLeft().getClick() %>次点击</span>
-                <span class="glyphicon glyphicon-comment"></span><span class="meta-content"><a href="/article/<%= pair.getLeft().getId() %>#disqus_thread"></a>条评论</span>
+                <span class="glyphicon glyphicon-calendar"></span><span class="meta-content"><%= DateFormatUtils.format(articleDTO.getArticle().getGmtCreate(), "yyyy-MM-dd HH:mm", TimeZone.getTimeZone("GMT+8")) %></span>
+                <span class="glyphicon glyphicon-eye-open"></span><span class="meta-content"><%= articleDTO.getArticle().getClick() %>次点击</span>
+                <span class="glyphicon glyphicon-comment"></span><span class="meta-content"><a href="/article/<%= articleDTO.getArticle().getId() %>#disqus_thread"></a>条评论</span>
                 <span class="glyphicon glyphicon-folder-open"></span>
                 <span class="meta-content">
-                  <% if (pair.getRight() != null && !pair.getRight().isEmpty()) { %>
-                    <% for (Tag tag : pair.getRight()) { %>
+                  <% if (articleDTO.getTags() != null && !articleDTO.getTags().isEmpty()) { %>
+                    <% for (Tag tag : articleDTO.getTags()) { %>
                       &nbsp;<a href="/tag/<%= tag.getId() %>"><%= tag.getName() %></a>
                     <% } %>
                   <% } %>
                 </span>
               </h6>
             </div>
-            <div class="panel-body"><%= pair.getLeft().getHtml() %></div>
+            <div class="panel-body"><%= articleDTO.getArticle().getHtml() %></div>
           </div>
           <div>
             <% if (pn != null) { %>

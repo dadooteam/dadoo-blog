@@ -1,9 +1,9 @@
 <%@page language="java" contentType="text/html;charset=UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %> 
-<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*" %>
+<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*,im.dadoo.blog.biz.dto.*" %>
 
 <%
-  Pair<Article, List<Tag>> pair = (Pair<Article, List<Tag>>)request.getAttribute("article-tags-pair");
+  ArticleDTO articleDTO = (ArticleDTO)request.getAttribute("articleDTO");
   List<Tag> tags = (List<Tag>)request.getAttribute("tags");
 %>
 <!DOCTYPE html>
@@ -23,10 +23,10 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <form id="update-article-form" enctype="multipart/form-data" action="/admin/article/<%= pair.getLeft().getId() %>/update" method="post">
+        <form id="update-article-form" enctype="multipart/form-data" action="/admin/article/<%= articleDTO.getArticle().getId() %>/update" method="post">
           <div class="form-group">
             <label for="title">标题</label>
-            <input name="title" type="text" class="form-control" value="<%= pair.getLeft().getTitle() %>">
+            <input name="title" type="text" class="form-control" value="<%= articleDTO.getArticle().getTitle() %>">
           </div>
           <div class="form-group">
             <label for="tagIds">标签</label>
@@ -34,8 +34,8 @@
               <% if (tags != null) { %>
                 <% for (Tag tag : tags) { %>
                   <% Boolean flag = false; %>
-                  <% for (Tag t : pair.getRight()) { %>
-                    <% if (t.getId().equals(tag.getId())) { %>
+                  <% for (Tag t : articleDTO.getTags()) { %>
+                    <% if (t.getId() == tag.getId()) { %>
                       <option selected="selected" value="<%= tag.getId() %>"><%= tag.getName() %></option>
                       <% flag = true; %>
                     <% } %>
@@ -49,7 +49,7 @@
           </div>
           <div class="form-group">
             <label for="html">内容</label>
-            <textarea id="html" name="html" class="form-control" rows="15"><%= pair.getLeft().getHtml() %></textarea>
+            <textarea id="html" name="html" class="form-control" rows="15"><%= articleDTO.getArticle().getHtml() %></textarea>
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-default">保存</button>

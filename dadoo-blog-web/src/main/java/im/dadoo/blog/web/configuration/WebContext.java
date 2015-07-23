@@ -8,8 +8,6 @@ package im.dadoo.blog.web.configuration;
 
 import im.dadoo.blog.web.interceptor.SessionInterceptor;
 import im.dadoo.blog.web.interceptor.SidebarInterceptor;
-//import im.dadoo.logger.client.LoggerClient;
-//import im.dadoo.logger.client.impl.DefaultLoggerClient;
 import javax.annotation.Resource;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -40,11 +38,6 @@ public class WebContext extends WebMvcConfigurerAdapter {
   
   @Resource
   private Environment env;
-  
-//  @Bean
-//  public LoggerClient loggerClient() {
-//    return new DefaultLoggerClient(env.getProperty("logger-server.url"));
-//  }
   
   @Bean
   public PropertiesConfiguration config() throws ConfigurationException {

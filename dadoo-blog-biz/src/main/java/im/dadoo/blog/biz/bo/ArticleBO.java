@@ -122,7 +122,7 @@ public class ArticleBO {
     return Pair.of(this.findPrevById(id), this.findNextById(id));
   }
 
-  public List<ArticleDTO> list(int pagecount, int pagesize) {
+  public List<ArticleDTO> page(int pagecount, int pagesize) {
     List<Article> articles = this.articleDAO.page(pagecount, pagesize);
     return this.toDTOs(articles);
   }
@@ -132,7 +132,7 @@ public class ArticleBO {
     return this.articleDAO.listOrderByClickDesc(limit);
   }
 
-  public List<ArticleDTO> listByTagId(long tagId, int pagecount, int pagesize) {
+  public List<ArticleDTO> pageByTagId(long tagId, int pagecount, int pagesize) {
     List<Article> articles = this.articleDAO.pageByTagId(tagId, pagecount, pagesize);
     return this.toDTOs(articles);
   }
@@ -146,6 +146,19 @@ public class ArticleBO {
     return this.taDAO.sizeByTagId(tagId);
   }
 
+  public long maxPagecount(int pagesize) {
+    checkArgument(pagesize > 0);
+    long size = this.articleDAO.size();
+    return 1 + (size - 1) / pagesize;
+  }
+  
+  public long maxPagecountByTagId(long tagId, int pagesize) {
+    checkArgument(tagId > 0L);
+    checkArgument(pagesize > 0);
+    long size = this.taDAO.sizeByTagId(tagId);
+    return 1 + (size - 1) / pagesize;
+  }
+  
   public ArticleDTO toDTO(Article article) {
     ArticleDTO result = null;
     checkNotNull(article);
