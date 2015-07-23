@@ -31,7 +31,7 @@ public class ArticleController extends BaseController {
   private static final Logger elogger = LoggerFactory.getLogger(Exception.class);
 
   @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
-  public String item(ModelMap map, @PathVariable long id) {
+  public String item(ModelMap map, @PathVariable Long id) {
     String result = "item";
     try {
       checkArgument(id > 0L);
@@ -49,9 +49,9 @@ public class ArticleController extends BaseController {
   }
 
   @RequestMapping(value = "/tag/{id}", method = RequestMethod.GET)
-  public String list(ModelMap map, @PathVariable long id,
-          @RequestParam(required = false) int pagecount,
-          @RequestParam(required = false) int pagesize) {
+  public String list(ModelMap map, @PathVariable Long id,
+          @RequestParam(required = false) Integer pagecount,
+          @RequestParam(required = false) Integer pagesize) {
     String result = "list";
     try {
       checkArgument(id > 0L);
@@ -93,10 +93,11 @@ public class ArticleController extends BaseController {
   }
 
   @RequestMapping(value = "/admin/article/{id}/update", method = RequestMethod.POST)
-  public String update(@PathVariable long id, @RequestParam String title,
+  public String update(@PathVariable Long id, @RequestParam String title,
           @RequestParam String html, @RequestParam(required = false) List<Long> tagIds) {
     String result = "redirect:/admin/article"; 
     try {
+      checkArgument(id > 0L);
       checkNotNull(title);
       checkNotNull(html);
       this.articleBO.updateById(id, title, html, tagIds);
@@ -109,7 +110,7 @@ public class ArticleController extends BaseController {
   }
 
   @RequestMapping(value = "/admin/article/{id}/delete", method = RequestMethod.GET)
-  public String delete(@PathVariable long id) {
+  public String delete(@PathVariable Long id) {
     String result = "redirect:/admin/article"; 
     try {
       checkArgument(id > 0L);

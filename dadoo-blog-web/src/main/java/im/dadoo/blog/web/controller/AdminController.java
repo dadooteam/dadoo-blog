@@ -9,11 +9,9 @@ package im.dadoo.blog.web.controller;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import im.dadoo.blog.biz.dto.ArticleDTO;
-import im.dadoo.blog.domain.Article;
 import im.dadoo.blog.domain.Link;
 import im.dadoo.blog.domain.Tag;
 import java.util.List;
-import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -50,7 +48,7 @@ public class AdminController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/tag/{id}/update", method = RequestMethod.GET)
-  public String getTagUpdateAdminPage(ModelMap map, @PathVariable long id) {
+  public String getTagUpdateAdminPage(ModelMap map, @PathVariable Long id) {
     String result = "admin/tag-update";
     try {
       checkArgument(id > 0L);
@@ -78,7 +76,7 @@ public class AdminController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/article/{id}/update", method = RequestMethod.GET)
-  public String getArticleUpdateAdminPage(ModelMap map, @PathVariable long id) {
+  public String getArticleUpdateAdminPage(ModelMap map, @PathVariable Long id) {
     String result = "admin/article-update";
     try {
       checkArgument(id > 0L);
@@ -107,7 +105,7 @@ public class AdminController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/link/{id}/update", method = RequestMethod.GET)
-  public String getAdminLinkUpdatePage(ModelMap map, @PathVariable long id) {
+  public String getAdminLinkUpdatePage(ModelMap map, @PathVariable Long id) {
     String result = "admin/link-update";
     try {
       checkArgument(id > 0L);

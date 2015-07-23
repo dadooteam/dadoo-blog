@@ -44,7 +44,7 @@ public class LinkController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/link/{id}/update", method = RequestMethod.POST)
-  public String update(@PathVariable long id, 
+  public String update(@PathVariable Long id, 
           @RequestParam String name, @RequestParam String url, @RequestParam String description) {
     String result = "redirect:/admin/link";
     try {
@@ -59,7 +59,7 @@ public class LinkController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/link/{id}/delete", method = RequestMethod.GET)
-  public String deleteById(@PathVariable long id) {
+  public String deleteById(@PathVariable Long id) {
     String result = "redirect:/admin/link";
     try {
       checkArgument(id > 0L);

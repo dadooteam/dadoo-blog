@@ -27,14 +27,14 @@ public class IndexController extends BaseController {
   private static final Logger elogger = LoggerFactory.getLogger(Exception.class);
   
   @RequestMapping(value = "/", method = RequestMethod.GET)
-  public String index(ModelMap map, @RequestParam(required = false) int pagecount,
-          @RequestParam(required = false) int pagesize) {
+  public String index(ModelMap map, @RequestParam(required = false) Integer pagecount,
+          @RequestParam(required = false) Integer pagesize) {
     String result = "list";
     try {
-      if (pagecount <= 0) {
+      if (pagecount == null || pagecount <= 0) {
         pagecount = 1;
       }
-      if (pagesize <= 0) {
+      if (pagesize == null || pagesize <= 0) {
         pagesize = 10;
       }
       List<ArticleDTO> articleDTOs = this.articleBO.page(pagecount, pagesize);

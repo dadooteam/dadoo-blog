@@ -8,7 +8,6 @@ package im.dadoo.blog.web.controller;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import im.dadoo.blog.domain.Tag;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +44,7 @@ public class TagController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/tag/{id}/update", method = RequestMethod.POST)
-  public String update(@PathVariable long id, @RequestParam String name) {
+  public String update(@PathVariable Long id, @RequestParam String name) {
     String result = "redirect:/admin/tag";
     try {
       checkArgument(id > 0L);
@@ -59,7 +58,7 @@ public class TagController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/tag/{id}/delete", method = RequestMethod.GET)
-  public String delete(@PathVariable long id) {
+  public String delete(@PathVariable Long id) {
     String result = "redirect:/admin/tag";
     try {
       checkArgument(id > 0L);
