@@ -95,26 +95,23 @@ public class ArticleBO {
   }
 
   public ArticleDTO findById(long id) {
-    ArticleDTO result = null;
     checkArgument(id > 0L);
     Article article = this.articleDAO.findById(id);
-    result = this.toDTO(article);
+    ArticleDTO result = this.toDTO(article);
     return result;
   }
 
   public ArticleDTO findPrevById(long id) {
-    ArticleDTO result = null;
     checkArgument(id > 0L);
     Article article = this.articleDAO.findPrevById(id);
-    result = this.toDTO(article);
+    ArticleDTO result = this.toDTO(article);
     return result;
   }
 
   public ArticleDTO findNextById(long id) {
-    ArticleDTO result = null;
     checkArgument(id > 0L);
     Article article = this.articleDAO.findNextById(id);
-    result = this.toDTO(article);
+    ArticleDTO result = this.toDTO(article);
     return result;
   }
 
@@ -151,22 +148,22 @@ public class ArticleBO {
     Long size = this.articleDAO.size();
     return 1 + (size.intValue() - 1) / pagesize;
   }
-  
+
   public int maxPagecountByTagId(long tagId, int pagesize) {
     checkArgument(tagId > 0L);
     checkArgument(pagesize > 0);
     Long size = this.taDAO.sizeByTagId(tagId);
     return 1 + (size.intValue() - 1) / pagesize;
   }
-  
+
   public ArticleDTO toDTO(Article article) {
     ArticleDTO result = null;
-    checkNotNull(article);
-    checkArgument(article.getId() > 0L);
-    result = new ArticleDTO();
-    result.setArticle(article);
-    List<Tag> tags = this.tagDAO.listByArticleId(article.getId());
-    result.setTags(tags);
+    if (article != null) {
+      result = new ArticleDTO();
+      result.setArticle(article);
+      List<Tag> tags = this.tagDAO.listByArticleId(article.getId());
+      result.setTags(tags);
+    }
     return result;
   }
 
