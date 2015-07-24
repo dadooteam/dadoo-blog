@@ -14,8 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -34,16 +32,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan("im.dadoo.blog")
 public class WebContext extends WebMvcConfigurerAdapter {
 
-  @Bean
-  public PropertiesConfiguration config() throws ConfigurationException {
-    return new PropertiesConfiguration("blog.properties");
-  }
-
-  @Bean
-  public SessionInterceptor sessionInterceptor() {
-    return new SessionInterceptor();
-  }
-
+  @Resource
+  private HandlerInterceptor sessionInterceptor;
+  
   @Bean
   public HandlerInterceptor sidebarInterceptor() {
     return new SidebarInterceptor();
@@ -72,7 +63,7 @@ public class WebContext extends WebMvcConfigurerAdapter {
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(sessionInterceptor()).addPathPatterns("/**");
+    registry.addInterceptor(this.sessionInterceptor).addPathPatterns("/**");
     registry.addInterceptor(sidebarInterceptor()).addPathPatterns("/").addPathPatterns("/version")
             .addPathPatterns("/article/**").addPathPatterns("/tag/**");
   }

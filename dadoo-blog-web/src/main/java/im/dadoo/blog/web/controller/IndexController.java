@@ -5,8 +5,10 @@
  */
 package im.dadoo.blog.web.controller;
 
+import im.dadoo.blog.biz.bo.ArticleBO;
 import im.dadoo.blog.biz.dto.ArticleDTO;
 import java.util.List;
+import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,11 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author codekitten
  */
 @Controller
-public class IndexController extends BaseController {
+public class IndexController {
 
   private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
   
   private static final Logger elogger = LoggerFactory.getLogger(Exception.class);
+  
+  @Resource
+  private ArticleBO articleBO;
   
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String index(ModelMap map, @RequestParam(required = false) Integer pagecount,

@@ -7,9 +7,12 @@ package im.dadoo.blog.web.controller;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import im.dadoo.blog.biz.bo.ArticleBO;
+import im.dadoo.blog.biz.bo.TagBO;
 import im.dadoo.blog.biz.dto.ArticleDTO;
 import im.dadoo.blog.domain.Tag;
 import java.util.List;
+import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -24,11 +27,17 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author codekitten
  */
 @Controller
-public class ArticleController extends BaseController {
+public class ArticleController {
 
   private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
   private static final Logger elogger = LoggerFactory.getLogger(Exception.class);
+  
+  @Resource
+  private ArticleBO articleBO;
+  
+  @Resource
+  private TagBO tagBO;
 
   @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
   public String item(ModelMap map, @PathVariable Long id) {

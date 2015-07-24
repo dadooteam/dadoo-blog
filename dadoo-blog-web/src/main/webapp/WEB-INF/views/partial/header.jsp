@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-md-12">
       <div id="header-title">
-        <h1><a href="/"><%= session.getAttribute("title") %></a></h1>
+        <h1><a href="/"><%= session.getAttribute("header") %></a></h1>
       </div>
     </div>
   </div>
