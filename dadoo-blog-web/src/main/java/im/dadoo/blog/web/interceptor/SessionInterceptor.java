@@ -6,7 +6,7 @@
 
 package im.dadoo.blog.web.interceptor;
 
-import im.dadoo.blog.web.service.ConfigService;
+import im.dadoo.blog.web.ao.ConfigService;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

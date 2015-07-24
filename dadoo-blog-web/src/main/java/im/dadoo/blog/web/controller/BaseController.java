@@ -7,7 +7,7 @@
 package im.dadoo.blog.web.controller;
 
 import im.dadoo.blog.biz.bo.ArticleBO;
-import im.dadoo.blog.web.service.ConfigService;
+import im.dadoo.blog.web.ao.ConfigService;
 import im.dadoo.blog.biz.bo.LinkBO;
 import im.dadoo.blog.biz.bo.TagBO;
 import javax.annotation.Resource;

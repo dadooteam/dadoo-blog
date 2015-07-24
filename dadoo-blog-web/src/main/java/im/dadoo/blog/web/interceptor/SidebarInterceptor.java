@@ -8,7 +8,7 @@ package im.dadoo.blog.web.interceptor;
 
 import im.dadoo.blog.domain.Tag;
 import im.dadoo.blog.biz.bo.ArticleBO;
-import im.dadoo.blog.web.service.ConfigService;
+import im.dadoo.blog.web.ao.ConfigService;
 import im.dadoo.blog.biz.bo.LinkBO;
 import im.dadoo.blog.biz.bo.TagBO;
 import java.util.ArrayList;

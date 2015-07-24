@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package im.dadoo.blog.web.service;
+package im.dadoo.blog.web.ao;
 
 import javax.annotation.Resource;
 import org.apache.commons.configuration.ConfigurationException;
