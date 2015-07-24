@@ -11,10 +11,24 @@ and open the template in the editor.
   </properties>
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="%highlight{%d{ISO8601} [%t] %-5level %c{1.} - %msg%n}"/>
+      <PatternLayout pattern="%d{ISO8601} [%p] %t %c.%M - %msg%n"/>
     </Console>
-    <RollingFile name="ControllerRollingFile" filename="${LOG_HOME}/controller.log" filePattern="${LOG_HOME}/$${date:yyyy/MM/dd}/controller-%d{yyyy-MM-dd-HH}.log">
-      <PatternLayout pattern="%d{ISO8601} [%t] %-5level %c{1.} - %msg%n"/>
+    <RollingFile name="MainRollingFile" filename="${LOG_HOME}/main.log" filePattern="${LOG_HOME}/backup/main-%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d{ISO8601} [%p] %t %c.%M - %msg%n"/>
+      <Policies>
+        <!-- 每小时封存一次-->
+        <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+      </Policies>
+    </RollingFile>
+    <RollingFile name="ControllerRollingFile" filename="${LOG_HOME}/controller.log" filePattern="${LOG_HOME}/backup/controller-%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d{ISO8601} [%p] %t %c.%M - %msg%n"/>
+      <Policies>
+        <!-- 每小时封存一次-->
+        <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+      </Policies>
+    </RollingFile>
+    <RollingFile name="SpringRollingFile" filename="${LOG_HOME}/spring.log" filePattern="${LOG_HOME}/backup/spring-%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d{ISO8601} [%p] %t %c.%M - %msg%n"/>
       <Policies>
         <!-- 每小时封存一次-->
         <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
@@ -26,9 +40,13 @@ and open the template in the editor.
       <AppenderRef ref="Console"/>
       <AppenderRef ref="ControllerRollingFile"/>
     </Logger>
-    <Logger name="org.springframework.jdbc.core" level="TRACE" additivity="false">
+    <Logger name="org.springframework" level="WARN" additivity="false">
       <AppenderRef ref="Console"/>
-      <AppenderRef ref="ControllerRollingFile"/>
+      <AppenderRef ref="SpringRollingFile"/>
+    </Logger>
+    <Logger name="im.dadoo.blog" level="INFO" additivity="false">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="MainRollingFile"/>
     </Logger>
     <Root level="ERROR">
       <AppenderRef ref="Console" />
