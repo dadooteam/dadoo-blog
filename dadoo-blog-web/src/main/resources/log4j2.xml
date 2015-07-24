@@ -7,7 +7,7 @@ and open the template in the editor.
 
 <Configuration>
   <properties>
-    <property name="LOG_HOME">D:/logs/dadoo-blog</property>
+    <property name="LOG_HOME">E:/logs/dadoo-blog</property>
   </properties>
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">

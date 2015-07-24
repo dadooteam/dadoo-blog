@@ -7,6 +7,7 @@
 package im.dadoo.blog.biz.configuration;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import im.dadoo.blog.biz.bo.FileBO;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
