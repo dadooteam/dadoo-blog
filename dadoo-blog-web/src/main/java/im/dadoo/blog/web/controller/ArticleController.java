@@ -110,7 +110,8 @@ public class ArticleController {
 
   @RequestMapping(value = "/admin/article/{id}/update", method = RequestMethod.POST)
   public String update(@PathVariable Long id, @RequestParam String title,
-          @RequestParam String html, @RequestParam(required = false) List<Long> tagIds) {
+          @RequestParam String html, @RequestParam(required = false) Integer top, 
+          @RequestParam(required = false) List<Long> tagIds) {
     String result = "redirect:/admin/article"; 
     try {
       checkArgument(id > 0L);

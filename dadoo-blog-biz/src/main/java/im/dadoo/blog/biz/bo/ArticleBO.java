@@ -106,23 +106,13 @@ public class ArticleBO {
   public ArticleDTO findPrevById(long id) {
     checkArgument(id > 0L);
     Article article = this.articleDAO.findPrevById(id);
-<<<<<<< HEAD
     return this.toDTO(article);
-=======
-    ArticleDTO result = this.toDTO(article);
-    return result;
->>>>>>> master
   }
 
   public ArticleDTO findNextById(long id) {
     checkArgument(id > 0L);
     Article article = this.articleDAO.findNextById(id);
-<<<<<<< HEAD
     return this.toDTO(article);
-=======
-    ArticleDTO result = this.toDTO(article);
-    return result;
->>>>>>> master
   }
 
   public Pair<ArticleDTO, ArticleDTO> findPrevAndNextById(long id) {
