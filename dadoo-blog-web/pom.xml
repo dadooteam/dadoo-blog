@@ -6,7 +6,7 @@
   <parent>
     <artifactId>dadoo-blog</artifactId>
     <groupId>im.dadoo</groupId>
-    <version>0.2.0</version>
+    <version>0.3</version>
   </parent>
 
   <artifactId>dadoo-blog-web</artifactId>

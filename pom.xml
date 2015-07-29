@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>im.dadoo</groupId>
   <artifactId>dadoo-blog</artifactId>
-  <version>0.2.0</version>
+  <version>0.3</version>
   <packaging>pom</packaging>
   <modules>
     <module>dadoo-blog-domain</module>
@@ -15,7 +15,6 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <dadoo.blog.version>0.2.0</dadoo.blog.version>
     <springframework.version>4.1.0.RELEASE</springframework.version>
     <slf4j.version>1.7.12</slf4j.version>
     <log4j.version>2.3</log4j.version>
