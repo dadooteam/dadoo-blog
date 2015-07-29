@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author shuwen.zsw
+ * @author codekitten
  */
 public class ArticleDTO {
   
