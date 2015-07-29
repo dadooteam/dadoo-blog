@@ -8,6 +8,8 @@ package im.dadoo.blog.web.controller;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import im.dadoo.blog.biz.bo.LinkBO;
+import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,11 +23,14 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author codekitten
  */
 @Controller
-public class LinkController extends BaseController {
+public class LinkController {
   
   private static final Logger logger = LoggerFactory.getLogger(LinkController.class);
   
   private static final Logger elogger = LoggerFactory.getLogger(Exception.class);
+  
+  @Resource
+  private LinkBO linkBO;
   
   @RequestMapping(value = "/admin/link/add", method = RequestMethod.POST)
   public String save(@RequestParam String name, @RequestParam String url, 
@@ -44,7 +49,7 @@ public class LinkController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/link/{id}/update", method = RequestMethod.POST)
-  public String update(@PathVariable long id, 
+  public String update(@PathVariable Long id, 
           @RequestParam String name, @RequestParam String url, @RequestParam String description) {
     String result = "redirect:/admin/link";
     try {
@@ -59,7 +64,7 @@ public class LinkController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/link/{id}/delete", method = RequestMethod.GET)
-  public String deleteById(@PathVariable long id) {
+  public String deleteById(@PathVariable Long id) {
     String result = "redirect:/admin/link";
     try {
       checkArgument(id > 0L);

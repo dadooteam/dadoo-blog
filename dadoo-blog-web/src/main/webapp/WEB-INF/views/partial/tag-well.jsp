@@ -1,9 +1,9 @@
 <%@page language="java" contentType="text/html;charset=UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %> 
-<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*" %>
+<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*,im.dadoo.blog.web.vo.*" %>
 
 <%
-  List<Pair<Tag, Integer>> pairs = (List<Pair<Tag, Integer>>)request.getAttribute("tag-size-pairs");
+  List<TagWellVO> tagWellVOs = (List<TagWellVO>)request.getAttribute("tagWellVOs");
 %>
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -11,9 +11,9 @@
   </div>
   <div class="panel-body">
     <ul class="sidebar-ul">
-      <% if (pairs != null) { %>
-        <% for (Pair<Tag, Integer> pair : pairs) { %>
-        <li>(<%= pair.getRight() %>)<a href="/tag/<%= pair.getLeft().getId() %>"><%= pair.getLeft().getName() %></a></li>
+      <% if (tagWellVOs != null) { %>
+        <% for (TagWellVO tagWellVO : tagWellVOs) { %>
+        <li>(<%= tagWellVO.getSize() %>)<a href="/tag/<%= tagWellVO.getTag().getId() %>"><%= tagWellVO.getTag().getName() %></a></li>
         <% } %>
       <% } %>
     </ul>

@@ -8,10 +8,14 @@ package im.dadoo.blog.web.controller;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import im.dadoo.blog.biz.bo.ArticleBO;
+import im.dadoo.blog.biz.bo.LinkBO;
+import im.dadoo.blog.biz.bo.TagBO;
 import im.dadoo.blog.biz.dto.ArticleDTO;
 import im.dadoo.blog.domain.Link;
 import im.dadoo.blog.domain.Tag;
 import java.util.List;
+import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -25,11 +29,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author codekitten
  */
 @Controller
-public class AdminController extends BaseController {
+public class AdminController {
   
   private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
   
   private static final Logger elogger = LoggerFactory.getLogger(AdminController.class);
+  
+  @Resource
+  private ArticleBO articleBO;
+  
+  @Resource
+  private TagBO tagBO;
+  
+  @Resource
+  private LinkBO linkBO;
   
   @RequestMapping(value = "/admin", method = RequestMethod.GET)
   public String getAdminPage() {
@@ -48,7 +61,7 @@ public class AdminController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/tag/{id}/update", method = RequestMethod.GET)
-  public String getTagUpdateAdminPage(ModelMap map, @PathVariable long id) {
+  public String getTagUpdateAdminPage(ModelMap map, @PathVariable Long id) {
     String result = "admin/tag-update";
     try {
       checkArgument(id > 0L);
@@ -76,7 +89,7 @@ public class AdminController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/article/{id}/update", method = RequestMethod.GET)
-  public String getArticleUpdateAdminPage(ModelMap map, @PathVariable long id) {
+  public String getArticleUpdateAdminPage(ModelMap map, @PathVariable Long id) {
     String result = "admin/article-update";
     try {
       checkArgument(id > 0L);
@@ -105,7 +118,7 @@ public class AdminController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/link/{id}/update", method = RequestMethod.GET)
-  public String getAdminLinkUpdatePage(ModelMap map, @PathVariable long id) {
+  public String getAdminLinkUpdatePage(ModelMap map, @PathVariable Long id) {
     String result = "admin/link-update";
     try {
       checkArgument(id > 0L);
@@ -118,13 +131,5 @@ public class AdminController extends BaseController {
       result = "redirect:/404";
     }
     return result;
-  }
-  
-  @RequestMapping(value = "/admin/config", method = RequestMethod.GET)
-  public String getAdminConfigPage(ModelMap map) {
-    map.addAttribute("title", this.configService.getTitle());
-    map.addAttribute("most-visit-article-size", this.configService.getMostVisitArticleSize());
-    map.addAttribute("article-pagesize", this.configService.getArticlePagesize());
-    return "admin/config";
   }
 }

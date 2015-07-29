@@ -8,16 +8,14 @@ package im.dadoo.blog.web.interceptor;
 
 import im.dadoo.blog.domain.Tag;
 import im.dadoo.blog.biz.bo.ArticleBO;
-import im.dadoo.blog.web.service.ConfigService;
 import im.dadoo.blog.biz.bo.LinkBO;
 import im.dadoo.blog.biz.bo.TagBO;
+import im.dadoo.blog.web.vo.TagWellVO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -35,39 +33,35 @@ public class SidebarInterceptor extends HandlerInterceptorAdapter {
   private TagBO tagBO;
   
   @Resource
-  private ConfigService configService;
-  
-  @Resource
   private LinkBO linkBO;
 
   @Override
   public void postHandle(HttpServletRequest hsr, HttpServletResponse hsr1, Object o, ModelAndView mav) throws Exception {
-    this.renderSidebar(mav.getModelMap());
-  }
-  
-  private void renderSidebar(ModelMap map) {
+    ModelMap map = mav.getModelMap();
     this.renderMostVisitArticles(map);
-    this.renderTagWell(map);
-    this.renderLinks(map);
+    this.renderTagWells(map);
+    this.renderLinkWells(map);
   }
   
   private void renderMostVisitArticles(ModelMap map) {
-    map.addAttribute("most-visit-articles", 
-            this.articleBO.listMostVisitedArticles(this.configService.getMostVisitArticleSize()));
+    map.addAttribute("most-visit-articles", this.articleBO.listMostVisitedArticles(6));
   }
   
-  private void renderTagWell(ModelMap map) {
+  private void renderTagWells(ModelMap map) {
     List<Tag> tags = this.tagBO.list();
     if (tags != null && !tags.isEmpty()) {
-      List<Pair<Tag, Long>> pairs = new ArrayList<>();
+      List<TagWellVO> tagWellVOs = new ArrayList<>();
       for (Tag tag : tags) {
-        pairs.add(ImmutablePair.of(tag, this.tagBO.sizeByTagId(tag.getId())));
+        TagWellVO tagWellVO = new TagWellVO();
+        tagWellVO.setTag(tag);
+        tagWellVO.setSize(this.tagBO.sizeByTagId(tag.getId()));
+        tagWellVOs.add(tagWellVO);
       }
-      map.addAttribute("tag-size-pairs", pairs);
+      map.addAttribute("tagWellVOs", tagWellVOs);
     }
   }
   
-  private void renderLinks(ModelMap map) {
+  private void renderLinkWells(ModelMap map) {
     map.addAttribute("links", this.linkBO.list());
   }
 }

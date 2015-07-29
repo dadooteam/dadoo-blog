@@ -99,19 +99,30 @@ public class ArticleBO {
   public ArticleDTO findById(long id) {
     checkArgument(id > 0L);
     Article article = this.articleDAO.findById(id);
-    return this.toDTO(article);
+    ArticleDTO result = this.toDTO(article);
+    return result;
   }
 
   public ArticleDTO findPrevById(long id) {
     checkArgument(id > 0L);
     Article article = this.articleDAO.findPrevById(id);
+<<<<<<< HEAD
     return this.toDTO(article);
+=======
+    ArticleDTO result = this.toDTO(article);
+    return result;
+>>>>>>> master
   }
 
   public ArticleDTO findNextById(long id) {
     checkArgument(id > 0L);
     Article article = this.articleDAO.findNextById(id);
+<<<<<<< HEAD
     return this.toDTO(article);
+=======
+    ArticleDTO result = this.toDTO(article);
+    return result;
+>>>>>>> master
   }
 
   public Pair<ArticleDTO, ArticleDTO> findPrevAndNextById(long id) {
@@ -142,27 +153,27 @@ public class ArticleBO {
     return this.taDAO.sizeByTagId(tagId);
   }
 
-  public long maxPagecount(int pagesize) {
+  public int maxPagecount(int pagesize) {
     checkArgument(pagesize > 0);
-    long size = this.articleDAO.size();
-    return 1 + (size - 1) / pagesize;
+    Long size = this.articleDAO.size();
+    return 1 + (size.intValue() - 1) / pagesize;
   }
-  
-  public long maxPagecountByTagId(long tagId, int pagesize) {
+
+  public int maxPagecountByTagId(long tagId, int pagesize) {
     checkArgument(tagId > 0L);
     checkArgument(pagesize > 0);
-    long size = this.taDAO.sizeByTagId(tagId);
-    return 1 + (size - 1) / pagesize;
+    Long size = this.taDAO.sizeByTagId(tagId);
+    return 1 + (size.intValue() - 1) / pagesize;
   }
-  
+
   public ArticleDTO toDTO(Article article) {
     ArticleDTO result = null;
-    checkNotNull(article);
-    checkArgument(article.getId() > 0L);
-    result = new ArticleDTO();
-    result.setArticle(article);
-    List<Tag> tags = this.tagDAO.listByArticleId(article.getId());
-    result.setTags(tags);
+    if (article != null) {
+      result = new ArticleDTO();
+      result.setArticle(article);
+      List<Tag> tags = this.tagDAO.listByArticleId(article.getId());
+      result.setTags(tags);
+    }
     return result;
   }
 

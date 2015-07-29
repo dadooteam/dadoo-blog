@@ -63,6 +63,11 @@
         <artifactId>aspectjweaver</artifactId>
         <version>1.8.0</version>
       </dependency>
+      <dependency>
+        <groupId>com.qiniu</groupId>
+        <artifactId>qiniu-java-sdk</artifactId>
+        <version>[7.0.0, 7.0.99]</version>
+      </dependency>
       <!-- spring dependencies -->
       <dependency>
         <groupId>org.springframework</groupId>
@@ -88,12 +93,17 @@
       <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>druid</artifactId>
-        <version>1.0.4</version>
+        <version>1.0.15</version>
+      </dependency>
+      <dependency>
+        <groupId>com.zaxxer</groupId>
+        <artifactId>HikariCP-java6</artifactId>
+        <version>2.3.9</version>
       </dependency>
       <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
-        <version>5.1.30</version>
+        <version>5.1.36</version>
       </dependency>
       <dependency>
         <groupId>${project.groupId}</groupId>

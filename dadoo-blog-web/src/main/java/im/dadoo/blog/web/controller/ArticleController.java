@@ -7,10 +7,13 @@ package im.dadoo.blog.web.controller;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import im.dadoo.blog.biz.bo.ArticleBO;
+import im.dadoo.blog.biz.bo.TagBO;
 import im.dadoo.blog.biz.dto.ArticleDTO;
 import im.dadoo.blog.cons.DadooConstant;
 import im.dadoo.blog.domain.Tag;
 import java.util.List;
+import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -25,14 +28,20 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author codekitten
  */
 @Controller
-public class ArticleController extends BaseController {
+public class ArticleController {
 
   private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
   private static final Logger elogger = LoggerFactory.getLogger(Exception.class);
+  
+  @Resource
+  private ArticleBO articleBO;
+  
+  @Resource
+  private TagBO tagBO;
 
   @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
-  public String item(ModelMap map, @PathVariable long id) {
+  public String item(ModelMap map, @PathVariable Long id) {
     String result = "item";
     try {
       checkArgument(id > 0L);
@@ -50,9 +59,9 @@ public class ArticleController extends BaseController {
   }
 
   @RequestMapping(value = "/tag/{id}", method = RequestMethod.GET)
-  public String list(ModelMap map, @PathVariable long id,
-          @RequestParam(required = false) int pagecount,
-          @RequestParam(required = false) int pagesize) {
+  public String list(ModelMap map, @PathVariable Long id,
+          @RequestParam(required = false) Integer pagecount,
+          @RequestParam(required = false) Integer pagesize) {
     String result = "list";
     try {
       checkArgument(id > 0L);
@@ -100,11 +109,11 @@ public class ArticleController extends BaseController {
   }
 
   @RequestMapping(value = "/admin/article/{id}/update", method = RequestMethod.POST)
-  public String update(@PathVariable long id, @RequestParam String title,
-          @RequestParam String html, @RequestParam(required = false) Integer top, 
-          @RequestParam(required = false) List<Long> tagIds) {
+  public String update(@PathVariable Long id, @RequestParam String title,
+          @RequestParam String html, @RequestParam(required = false) List<Long> tagIds) {
     String result = "redirect:/admin/article"; 
     try {
+      checkArgument(id > 0L);
       checkNotNull(title);
       checkNotNull(html);
       if (top == null) {
@@ -122,7 +131,7 @@ public class ArticleController extends BaseController {
   }
 
   @RequestMapping(value = "/admin/article/{id}/delete", method = RequestMethod.GET)
-  public String delete(@PathVariable long id) {
+  public String delete(@PathVariable Long id) {
     String result = "redirect:/admin/article"; 
     try {
       checkArgument(id > 0L);

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package main.java.im.dadoo.blog.web.aop;
+package java.im.dadoo.blog.web.aop;
 
 import java.util.HashMap;
 import java.util.Map;

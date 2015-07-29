@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="dadoo blog">
 <meta name="author" content="dadoosoon">
-<title><%= request.getParameter("title") %> &nbsp; | &nbsp; <%= session.getAttribute("title") %></title>
+<title><%= request.getParameter("title") %> &nbsp; | &nbsp; <%= session.getAttribute("header") %></title>
 
 <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css" />
 <link rel="stylesheet/less" href="/resources/less/style.less" />
