@@ -5,7 +5,6 @@
 package im.dadoo.blog.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -24,6 +23,8 @@ public class Article implements Serializable {
   private String text;
 
   private long gmtCreate;
+  
+  private int top;
 
   private int click;
 
@@ -78,9 +79,23 @@ public class Article implements Serializable {
     this.click = click;
   }
 
+    /**
+   * @return the top
+   */
+  public int getTop() {
+    return top;
+  }
+
+  /**
+   * @param top the top to set
+   */
+  public void setTop(int top) {
+    this.top = top;
+  }
+
   @Override
   public String toString() {
-    return "Article{" + "id=" + id + ", title=" + title + ", html=" + html + ", text=" + text + ", gmtCreate=" + new Date(gmtCreate) + ", click=" + click + '}';
+    return "Article{" + "id=" + id + ", title=" + title + ", html=" + html + ", text=" + text + ", gmtCreate=" + gmtCreate + ", top=" + top + ", click=" + click + '}';
   }
 
 }

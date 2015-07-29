@@ -40,7 +40,7 @@ public class ArticleBO {
   @Resource
   private TagArticleDAO taDAO;
 
-  public void insert(String title, String html, List<Long> tagIds) {
+  public void insert(String title, String html, int top, List<Long> tagIds) {
     String text = Jsoup.parse(html).text();
     Article article = new Article();
     article.setTitle(title);
@@ -48,6 +48,7 @@ public class ArticleBO {
     article.setText(text);
     article.setGmtCreate(System.currentTimeMillis());
     article.setClick(0);
+    article.setTop(top);
     long articleId = this.articleDAO.insert(article);
 
     if (articleId > 0L) {
@@ -62,7 +63,7 @@ public class ArticleBO {
     }
   }
 
-  public void updateById(long id, String title, String html, List<Long> tagIds) {
+  public void updateById(long id, String title, String html, int top, List<Long> tagIds) {
     checkArgument(id > 0L);
     String text = Jsoup.parse(html).text();
     Article article = this.articleDAO.findById(id);
@@ -70,6 +71,7 @@ public class ArticleBO {
       article.setTitle(title);
       article.setHtml(html);
       article.setText(text);
+      article.setTop(top);
       this.articleDAO.updateById(article);
       this.taDAO.deleteByArticleId(id);
       if (tagIds != null && !tagIds.isEmpty()) {
@@ -95,27 +97,21 @@ public class ArticleBO {
   }
 
   public ArticleDTO findById(long id) {
-    ArticleDTO result = null;
     checkArgument(id > 0L);
     Article article = this.articleDAO.findById(id);
-    result = this.toDTO(article);
-    return result;
+    return this.toDTO(article);
   }
 
   public ArticleDTO findPrevById(long id) {
-    ArticleDTO result = null;
     checkArgument(id > 0L);
     Article article = this.articleDAO.findPrevById(id);
-    result = this.toDTO(article);
-    return result;
+    return this.toDTO(article);
   }
 
   public ArticleDTO findNextById(long id) {
-    ArticleDTO result = null;
     checkArgument(id > 0L);
     Article article = this.articleDAO.findNextById(id);
-    result = this.toDTO(article);
-    return result;
+    return this.toDTO(article);
   }
 
   public Pair<ArticleDTO, ArticleDTO> findPrevAndNextById(long id) {

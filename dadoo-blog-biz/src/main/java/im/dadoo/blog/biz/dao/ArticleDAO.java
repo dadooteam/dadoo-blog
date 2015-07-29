@@ -51,18 +51,18 @@ public class ArticleDAO {
           = "SELECT * FROM t_article WHERE id>:id ORDER BY id ASC LIMIT 1";
 
   private static final String PAGE_SQL
-          = "SELECT * FROM t_article ORDER BY id DESC LIMIT :offset,:pagesize";
+          = "SELECT * FROM t_article ORDER BY top DESC,id DESC LIMIT :offset,:pagesize";
 
   private static final String LIST_CLICK_DESC_SQL
           = "SELECT * FROM t_article ORDER BY click DESC LIMIT :limit";
 
   private static final String PAGE_BY_TAG_ID_PAGINATION_SQL
           = "SELECT t_article.id AS id,t_article.title AS title,t_article.html AS html, "
-          + "t_article.text AS text,t_article.publish_datetime AS publish_datetime, "
+          + "t_article.text AS text,t_article.gmt_create AS gmt_create,t_article.top AS top, "
           + "t_article.click AS click FROM t_article "
           + "RIGHT OUTER JOIN t_tag_article ON t_article.id=t_tag_article.article_id "
           + "WHERE t_tag_article.tag_id=:tag_id "
-          + "ORDER BY t_article.publish_datetime DESC LIMIT :offset,:pagesize";
+          + "ORDER BY t_article.top DESC,t_article.id DESC LIMIT :offset,:pagesize";
 
   private static final String SIZE_SQL
           = "SELECT count(*) AS size FROM t_article";
@@ -85,6 +85,7 @@ public class ArticleDAO {
     sps.addValue("html", article.getHtml());
     sps.addValue("text", article.getText());
     sps.addValue("click", article.getClick());
+    sps.addValue("top", article.getTop());
     this.jdbcTemplate.update(INSERT_SQL, sps, holder);
     return holder.getKey().longValue();
   }
@@ -97,6 +98,7 @@ public class ArticleDAO {
     sps.addValue("title", article.getTitle());
     sps.addValue("html", article.getHtml());
     sps.addValue("text", article.getText());
+    sps.addValue("top", article.getTop());
     this.jdbcTemplate.update(UPDATE_SQL, sps);
   }
 

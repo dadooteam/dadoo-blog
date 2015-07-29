@@ -8,6 +8,7 @@ package im.dadoo.blog.web.controller;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import im.dadoo.blog.biz.dto.ArticleDTO;
+import im.dadoo.blog.cons.DadooConstant;
 import im.dadoo.blog.domain.Tag;
 import java.util.List;
 import org.slf4j.Logger;
@@ -78,12 +79,18 @@ public class ArticleController extends BaseController {
 
   @RequestMapping(value = "/admin/article/add", method = RequestMethod.POST)
   public String insert(@RequestParam String title, @RequestParam String html,
+          @RequestParam(required = false) Integer top,
           @RequestParam(required = false) List<Long> tagIds) {
     String result = "redirect:/admin/article";
     try {
       checkNotNull(title);
       checkNotNull(html);
-      this.articleBO.insert(title, html, tagIds);
+      if (top == null) {
+        top = DadooConstant.TOP_N;
+      } else {
+        checkArgument(top == DadooConstant.TOP_N || top == DadooConstant.TOP_Y);
+      }
+      this.articleBO.insert(title, html, top, tagIds);
     } catch (Exception e) {
       logger.error(e.getLocalizedMessage());
       elogger.error("ERROR", e);
@@ -94,12 +101,18 @@ public class ArticleController extends BaseController {
 
   @RequestMapping(value = "/admin/article/{id}/update", method = RequestMethod.POST)
   public String update(@PathVariable long id, @RequestParam String title,
-          @RequestParam String html, @RequestParam(required = false) List<Long> tagIds) {
+          @RequestParam String html, @RequestParam(required = false) Integer top, 
+          @RequestParam(required = false) List<Long> tagIds) {
     String result = "redirect:/admin/article"; 
     try {
       checkNotNull(title);
       checkNotNull(html);
-      this.articleBO.updateById(id, title, html, tagIds);
+      if (top == null) {
+        top = DadooConstant.TOP_N;
+      } else {
+        checkArgument(top == DadooConstant.TOP_N || top == DadooConstant.TOP_Y);
+      } 
+      this.articleBO.updateById(id, title, html, top, tagIds);
     } catch (Exception e) {
       logger.error(e.getLocalizedMessage());
       elogger.error("ERROR", e);

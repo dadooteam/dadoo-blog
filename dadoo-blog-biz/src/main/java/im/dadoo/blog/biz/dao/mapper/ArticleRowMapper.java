@@ -28,6 +28,7 @@ public class ArticleRowMapper implements RowMapper<Article> {
       article.setText(rs.getString("text"));
       article.setGmtCreate(rs.getLong("gmt_create"));
       article.setClick(rs.getInt("click"));
+      article.setTop(rs.getInt("top"));
       return article;
   }
   
