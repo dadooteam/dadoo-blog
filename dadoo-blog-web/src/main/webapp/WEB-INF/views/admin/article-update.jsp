@@ -47,7 +47,7 @@
               <% } %>
             </select>
           </div>
-            <div class="form-group">
+          <div class="form-group">
             <label>
               <% if(articleDTO.getArticle().getTop() == DadooConstant.TOP_Y) { %>
                 <input type="checkbox" name="top" checked value="2">
@@ -55,6 +55,16 @@
                 <input type="checkbox" name="top" value="2">
               <% } %>
               置顶
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              <% if(articleDTO.getArticle().getHidden() == DadooConstant.HIDDEN_Y) { %>
+                <input type="checkbox" name="hidden" checked value="2">
+              <% } else { %>
+                <input type="checkbox" name="hidden" value="2">
+              <% } %>
+              隐藏
             </label>
           </div>
           <div class="form-group">

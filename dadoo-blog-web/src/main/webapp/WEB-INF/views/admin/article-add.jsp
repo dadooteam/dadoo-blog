@@ -45,6 +45,12 @@
             </label>
           </div>
           <div class="form-group">
+            <label>
+              <input type="checkbox" name="hidden" value="2">
+              隐藏
+            </label>
+          </div>
+          <div class="form-group">
             <label for="html">内容</label>
             <textarea id="html" name="html" class="form-control" rows="15"></textarea>
           </div>

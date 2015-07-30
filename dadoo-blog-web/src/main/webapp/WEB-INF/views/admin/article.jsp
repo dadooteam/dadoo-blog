@@ -54,6 +54,11 @@
                     √
                   <% } %>
                 </td>
+                <td>
+                  <% if (articleDTO.getArticle().getHidden() == DadooConstant.HIDDEN_Y) { %>
+                    √
+                  <% } %>
+                </td>
                 <td><%= articleDTO.getArticle().getClick() %></td>
                 <td>
                   <a href="/admin/article/<%= articleDTO.getArticle().getId() %>/update">修改</a>

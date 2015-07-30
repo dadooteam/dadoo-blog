@@ -92,6 +92,7 @@ public class ArticleDAO {
     sps.addValue("text", article.getText());
     sps.addValue("click", article.getClick());
     sps.addValue("top", article.getTop());
+    sps.addValue("hidden", article.getHidden());
     this.jdbcTemplate.update(INSERT_SQL, sps, holder);
     return holder.getKey().longValue();
   }
@@ -105,6 +106,7 @@ public class ArticleDAO {
     sps.addValue("html", article.getHtml());
     sps.addValue("text", article.getText());
     sps.addValue("top", article.getTop());
+    sps.addValue("hidden", article.getHidden());
     this.jdbcTemplate.update(UPDATE_SQL, sps);
   }
 
