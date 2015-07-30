@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html;charset=UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %> 
-<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*,im.dadoo.blog.biz.dto.*" %>
+<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*,im.dadoo.blog.biz.dto.*,im.dadoo.blog.cons.*" %>
 
 <%
   ArticleDTO articleDTO = (ArticleDTO)request.getAttribute("articleDTO");
@@ -46,6 +46,16 @@
                 <% } %>
               <% } %>
             </select>
+          </div>
+            <div class="form-group">
+            <label>
+              <% if(articleDTO.getArticle().getTop() == DadooConstant.TOP_Y) { %>
+                <input type="checkbox" name="top" checked value="2">
+              <% } else { %>
+                <input type="checkbox" name="top" value="2">
+              <% } %>
+              置顶
+            </label>
           </div>
           <div class="form-group">
             <label for="html">内容</label>

@@ -28,14 +28,14 @@ import org.springframework.stereotype.Repository;
 public class ArticleDAO {
 
   private static final String INSERT_SQL
-          = "INSERT INTO t_article(gmt_create,title,html,text,gmt_create,click) "
-          + "VALUES(:gmt_create,:title,:html,:text,:click)";
+          = "INSERT INTO t_article(gmt_create,title,html,text,click,top) "
+          + "VALUES(:gmt_create,:title,:html,:text,:click,:top)";
 
   private static final String UPDATE_CLICK_SQL
           = "UPDATE t_article SET click=click+1 WHERE id=:id";
 
   private static final String UPDATE_SQL
-          = "UPDATE t_article SET title=:title,html=:html,text=:text "
+          = "UPDATE t_article SET title=:title,html=:html,text=:text,top=:top "
           + "WHERE id=:id";
 
   private static final String DELETE_BY_ID_SQL

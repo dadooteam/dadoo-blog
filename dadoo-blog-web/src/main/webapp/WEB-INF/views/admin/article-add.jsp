@@ -39,6 +39,12 @@
             </select>
           </div>
           <div class="form-group">
+            <label>
+              <input type="checkbox" name="top" value="2">
+              置顶
+            </label>
+          </div>
+          <div class="form-group">
             <label for="html">内容</label>
             <textarea id="html" name="html" class="form-control" rows="15"></textarea>
           </div>

@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html;charset=UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %> 
-<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*,im.dadoo.blog.biz.dto.*" %>
+<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*,im.dadoo.blog.biz.dto.*,im.dadoo.blog.cons.*" %>
 
 <%
   ArticleDTO articleDTO = (ArticleDTO)request.getAttribute("articleDTO");
@@ -23,7 +23,12 @@
         <% if (articleDTO != null) { %>
         <div id="article-<%= articleDTO.getArticle().getId() %>" class="panel panel-default">
             <div class="panel-heading">
-              <h1 class="panel-title"><%= articleDTO.getArticle().getTitle() %></h1>
+              <h1 class="panel-title">
+                <% if(articleDTO.getArticle().getTop() == DadooConstant.TOP_Y) { %>
+                  <small>[顶]</small>
+                <% } %>
+                <%= articleDTO.getArticle().getTitle() %>
+              </h1>
               <h6 class="panel-meta">
                 <span class="glyphicon glyphicon-calendar"></span><span class="meta-content"><%= DateFormatUtils.format(articleDTO.getArticle().getGmtCreate(), "yyyy-MM-dd HH:mm", TimeZone.getTimeZone("GMT+8")) %></span>
                 <span class="glyphicon glyphicon-eye-open"></span><span class="meta-content"><%= articleDTO.getArticle().getClick() %>次点击</span>
