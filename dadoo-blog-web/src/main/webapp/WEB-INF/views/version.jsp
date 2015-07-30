@@ -90,6 +90,7 @@
               <h3 class="list-group-item-heading"><span class="label label-info">0.3</span><small class="pull-right">更新时间:2015-07-30</small></h3>
               <ol class="version-list">
                 <li>#feature 增加文章置顶功能</li>
+                <li>#feature 增加文章隐藏功能</li>
                 <li>#improve 删除无用代码</li>
               </ol>
             </li>
