@@ -42,10 +42,10 @@ public class IndexController {
       if (pagesize == null || pagesize <= 0) {
         pagesize = 10;
       }
-      List<ArticleDTO> articleDTOs = this.articleBO.page(pagecount, pagesize);
+      List<ArticleDTO> articleDTOs = this.articleBO.pageForUnhidden(pagecount, pagesize);
       map.addAttribute("articleDTOs", articleDTOs);
       map.addAttribute("curPagecount", pagecount);
-      map.addAttribute("maxPagecount", this.articleBO.maxPagecount(pagesize));
+      map.addAttribute("maxPagecount", this.articleBO.maxPagecountForUnhidden(pagesize));
     } catch (Exception e) {
       logger.error(e.getLocalizedMessage());
       elogger.error("ERROR", e);

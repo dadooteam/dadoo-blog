@@ -15,6 +15,8 @@ public class Article implements Serializable {
   private static final long serialVersionUID = -1312159335915767619L;
 
   private long id;
+  
+  private long gmtCreate;
 
   private String title;
 
@@ -22,14 +24,11 @@ public class Article implements Serializable {
 
   private String text;
 
-  private long gmtCreate;
+  private int click;
   
   private int top;
-
-  private int click;
-
-  public Article() {
-  }
+  
+  private int hidden;
 
   public long getId() {
     return id;
@@ -79,23 +78,25 @@ public class Article implements Serializable {
     this.click = click;
   }
 
-    /**
-   * @return the top
-   */
   public int getTop() {
     return top;
   }
 
-  /**
-   * @param top the top to set
-   */
   public void setTop(int top) {
     this.top = top;
   }
 
+  public int getHidden() {
+    return hidden;
+  }
+
+  public void setHidden(int hidden) {
+    this.hidden = hidden;
+  }
+
   @Override
   public String toString() {
-    return "Article{" + "id=" + id + ", title=" + title + ", html=" + html + ", text=" + text + ", gmtCreate=" + gmtCreate + ", top=" + top + ", click=" + click + '}';
+    return "Article{" + "id=" + id + ", gmtCreate=" + gmtCreate + ", title=" + title + ", html=" + html + ", text=" + text + ", click=" + click + ", top=" + top + ", hidden=" + hidden + '}';
   }
 
 }

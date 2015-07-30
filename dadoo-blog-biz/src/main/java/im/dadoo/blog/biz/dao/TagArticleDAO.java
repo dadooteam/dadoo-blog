@@ -34,7 +34,9 @@ public class TagArticleDAO {
           "DELETE FROM t_tag_article WHERE article_id=:article_id";
   
   private static final String SIZE_BY_TAG_ID_SQL = 
-          "SELECT count(*) AS size FROM t_tag_article WHERE tag_id=:tag_id";
+          "SELECT count(*) AS size FROM t_tag_article "
+          + "INNER JOIN t_article ON t_tag_article.article_id=t_article.id "
+          + "WHERE t_tag_article.tag_id=:tag_id AND t_article.hidden=1";
   
   @Resource
   private NamedParameterJdbcTemplate jdbcTemplate;

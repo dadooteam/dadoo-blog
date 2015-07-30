@@ -16,4 +16,8 @@ public final class DadooConstant {
   //top field
   public static final int TOP_Y = 2;
   public static final int TOP_N = 1; //default
+  
+  //hidden field
+  public static final int HIDDEN_Y = 2;
+  public static final int HIDDEN_N = 1; //default
 }

@@ -1,3 +1,4 @@
+<%@page import="im.dadoo.blog.cons.DadooConstant"%>
 <%@page language="java" contentType="text/html;charset=UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %> 
 <%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*,im.dadoo.blog.biz.dto.*" %>
@@ -29,6 +30,8 @@
               <th>名称</th>
               <th>创建时间</th>
               <th>标签</th>
+              <th>置顶</th>
+              <th>隐藏</th>
               <th>浏览次数</th>
               <th>操作</th>
             </tr>
@@ -44,6 +47,11 @@
                     <% for (Tag tag : articleDTO.getTags()) { %>
                       &nbsp;<a href="/tag/<%= tag.getId() %>"><%= tag.getName() %></a>
                     <% } %>
+                  <% } %>
+                </td>
+                <td>
+                  <% if (articleDTO.getArticle().getTop() == DadooConstant.TOP_Y) { %>
+                    √
                   <% } %>
                 </td>
                 <td><%= articleDTO.getArticle().getClick() %></td>

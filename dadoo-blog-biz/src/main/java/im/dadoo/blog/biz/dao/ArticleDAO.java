@@ -28,14 +28,14 @@ import org.springframework.stereotype.Repository;
 public class ArticleDAO {
 
   private static final String INSERT_SQL
-          = "INSERT INTO t_article(gmt_create,title,html,text,click,top) "
-          + "VALUES(:gmt_create,:title,:html,:text,:click,:top)";
+          = "INSERT INTO t_article(gmt_create,title,html,text,click,top,hidden) "
+          + "VALUES(:gmt_create,:title,:html,:text,:click,:top,:hidden)";
 
   private static final String UPDATE_CLICK_SQL
           = "UPDATE t_article SET click=click+1 WHERE id=:id";
 
   private static final String UPDATE_SQL
-          = "UPDATE t_article SET title=:title,html=:html,text=:text,top=:top "
+          = "UPDATE t_article SET title=:title,html=:html,text=:text,top=:top,hidden=:hidden "
           + "WHERE id=:id";
 
   private static final String DELETE_BY_ID_SQL
@@ -45,28 +45,34 @@ public class ArticleDAO {
           = "SELECT * FROM t_article WHERE id=:id LIMIT 1";
 
   private static final String FIND_PREV_BY_ID_SQL
-          = "SELECT * FROM t_article WHERE id<:id ORDER BY id DESC LIMIT 1";
+          = "SELECT * FROM t_article WHERE id<:id AND hidden=1 ORDER BY id DESC LIMIT 1";
 
   private static final String FIND_NEXT_BY_ID_SQL
-          = "SELECT * FROM t_article WHERE id>:id ORDER BY id ASC LIMIT 1";
+          = "SELECT * FROM t_article WHERE id>:id AND hidden=1 ORDER BY id ASC LIMIT 1";
 
   private static final String PAGE_SQL
           = "SELECT * FROM t_article ORDER BY top DESC,id DESC LIMIT :offset,:pagesize";
-
+  
+  private static final String PAGE_BY_HIDDEN_SQL
+          = "SELECT * FROM t_article WHERE hidden=:hidden ORDER BY top DESC,id DESC LIMIT :offset,:pagesize";
+  
   private static final String LIST_CLICK_DESC_SQL
-          = "SELECT * FROM t_article ORDER BY click DESC LIMIT :limit";
+          = "SELECT * FROM t_article WHERE hidden=1 ORDER BY click DESC LIMIT :limit";
 
   private static final String PAGE_BY_TAG_ID_PAGINATION_SQL
           = "SELECT t_article.id AS id,t_article.title AS title,t_article.html AS html, "
           + "t_article.text AS text,t_article.gmt_create AS gmt_create,t_article.top AS top, "
-          + "t_article.click AS click FROM t_article "
+          + "t_article.click AS click,t_article.hidden AS hidden FROM t_article "
           + "RIGHT OUTER JOIN t_tag_article ON t_article.id=t_tag_article.article_id "
-          + "WHERE t_tag_article.tag_id=:tag_id "
+          + "WHERE t_tag_article.tag_id=:tag_id AND t_article.hidden=1 "
           + "ORDER BY t_article.top DESC,t_article.id DESC LIMIT :offset,:pagesize";
 
   private static final String SIZE_SQL
           = "SELECT count(*) AS size FROM t_article";
 
+  private static final String SIZE_BY_HIDDEN_SQL
+          ="SELECT count(*) AS size FROM t_article WHERE hidden=:hidden";
+  
   @Resource
   private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -147,10 +153,9 @@ public class ArticleDAO {
     sps.addValue("id", id);
     List<Article> articles = this.jdbcTemplate.query(FIND_NEXT_BY_ID_SQL, sps, this.articleRowMapper);
     if (articles != null && !articles.isEmpty()) {
-      return articles.get(0);
-    } else {
-      return null;
+      result = articles.get(0);
     }
+    return result;
   }
 
   public List<Article> page(int pagecount, int pagesize) {
@@ -163,6 +168,17 @@ public class ArticleDAO {
     return articles;
   }
 
+  public List<Article> pageByHidden(int hidden, int pagecount, int pagesize) {
+    checkArgument(pagecount >= 1);
+    checkArgument(pagesize > 0);
+    MapSqlParameterSource sps = new MapSqlParameterSource();
+    sps.addValue("hidden", hidden);
+    sps.addValue("offset", (pagecount - 1) * pagesize);
+    sps.addValue("pagesize", pagesize);
+    List<Article> articles = this.jdbcTemplate.query(PAGE_BY_HIDDEN_SQL, sps, this.articleRowMapper);
+    return articles;
+  }
+  
   public List<Article> listOrderByClickDesc(long limit) {
     checkArgument(limit > 0L);
     MapSqlParameterSource sps = new MapSqlParameterSource();
@@ -177,7 +193,7 @@ public class ArticleDAO {
     checkArgument(pagesize > 0);
     MapSqlParameterSource sps = new MapSqlParameterSource();
     sps.addValue("tag_id", tagId);
-    sps.addValue("offset", pagecount * pagesize);
+    sps.addValue("offset", (pagecount - 1) * pagesize);
     sps.addValue("pagesize", pagesize);
     List<Article> articles = this.jdbcTemplate.query(PAGE_BY_TAG_ID_PAGINATION_SQL, sps, this.articleRowMapper);
     return articles;
@@ -187,4 +203,9 @@ public class ArticleDAO {
     return this.jdbcTemplate.queryForObject(SIZE_SQL, (SqlParameterSource) null, this.sizeRowMapper);
   }
 
+  public long sizeByHidden(int hidden) {
+    MapSqlParameterSource sps = new MapSqlParameterSource();
+    sps.addValue("hidden", hidden);
+    return this.jdbcTemplate.queryForObject(SIZE_BY_HIDDEN_SQL, sps, this.sizeRowMapper);
+  }
 }

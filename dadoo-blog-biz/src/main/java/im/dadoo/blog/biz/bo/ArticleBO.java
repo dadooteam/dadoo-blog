@@ -12,6 +12,7 @@ import im.dadoo.blog.biz.dao.ArticleDAO;
 import im.dadoo.blog.biz.dao.TagArticleDAO;
 import im.dadoo.blog.biz.dao.TagDAO;
 import im.dadoo.blog.biz.dto.ArticleDTO;
+import im.dadoo.blog.cons.DadooConstant;
 import im.dadoo.blog.domain.Article;
 import im.dadoo.blog.domain.Tag;
 import im.dadoo.blog.domain.TagArticle;
@@ -40,7 +41,7 @@ public class ArticleBO {
   @Resource
   private TagArticleDAO taDAO;
 
-  public void insert(String title, String html, int top, List<Long> tagIds) {
+  public void insert(String title, String html, int top, int hidden, List<Long> tagIds) {
     String text = Jsoup.parse(html).text();
     Article article = new Article();
     article.setTitle(title);
@@ -49,6 +50,7 @@ public class ArticleBO {
     article.setGmtCreate(System.currentTimeMillis());
     article.setClick(0);
     article.setTop(top);
+    article.setHidden(hidden);
     long articleId = this.articleDAO.insert(article);
 
     if (articleId > 0L) {
@@ -63,7 +65,7 @@ public class ArticleBO {
     }
   }
 
-  public void updateById(long id, String title, String html, int top, List<Long> tagIds) {
+  public void updateById(long id, String title, String html, int top, int hidden, List<Long> tagIds) {
     checkArgument(id > 0L);
     String text = Jsoup.parse(html).text();
     Article article = this.articleDAO.findById(id);
@@ -72,6 +74,7 @@ public class ArticleBO {
       article.setHtml(html);
       article.setText(text);
       article.setTop(top);
+      article.setHidden(hidden);
       this.articleDAO.updateById(article);
       this.taDAO.deleteByArticleId(id);
       if (tagIds != null && !tagIds.isEmpty()) {
@@ -124,6 +127,11 @@ public class ArticleBO {
     return this.toDTOs(articles);
   }
 
+  public List<ArticleDTO> pageForUnhidden(int pagecount, int pagesize) {
+    List<Article> articles = this.articleDAO.pageByHidden(DadooConstant.HIDDEN_N, pagecount, pagesize);
+    return this.toDTOs(articles);
+  }
+  
   public List<Article> listMostVisitedArticles(long limit) {
     checkArgument(limit > 0L);
     return this.articleDAO.listOrderByClickDesc(limit);
@@ -146,6 +154,12 @@ public class ArticleBO {
   public int maxPagecount(int pagesize) {
     checkArgument(pagesize > 0);
     Long size = this.articleDAO.size();
+    return 1 + (size.intValue() - 1) / pagesize;
+  }
+  
+  public int maxPagecountForUnhidden(int pagesize) {
+    checkArgument(pagesize > 0);
+    Long size = this.articleDAO.sizeByHidden(DadooConstant.HIDDEN_N);
     return 1 + (size.intValue() - 1) / pagesize;
   }
 

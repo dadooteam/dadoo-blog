@@ -65,10 +65,10 @@ public class ArticleController {
     String result = "list";
     try {
       checkArgument(id > 0L);
-      if (pagecount <= 0) {
+      if (pagecount == null || pagecount <= 0) {
         pagecount = 1;
       }
-      if (pagesize <= 0) {
+      if (pagesize == null || pagesize <= 0) {
         pagesize = 10;
       }
       Tag tag = this.tagBO.findById(id);
@@ -89,6 +89,7 @@ public class ArticleController {
   @RequestMapping(value = "/admin/article/add", method = RequestMethod.POST)
   public String insert(@RequestParam String title, @RequestParam String html,
           @RequestParam(required = false) Integer top,
+          @RequestParam(required = false) Integer hidden,
           @RequestParam(required = false) List<Long> tagIds) {
     String result = "redirect:/admin/article";
     try {
@@ -99,7 +100,12 @@ public class ArticleController {
       } else {
         checkArgument(top == DadooConstant.TOP_N || top == DadooConstant.TOP_Y);
       }
-      this.articleBO.insert(title, html, top, tagIds);
+      if (hidden == null) {
+        hidden = DadooConstant.HIDDEN_N;
+      } else {
+        checkArgument(hidden == DadooConstant.HIDDEN_N || hidden == DadooConstant.HIDDEN_Y);
+      }
+      this.articleBO.insert(title, html, top, hidden, tagIds);
     } catch (Exception e) {
       logger.error(e.getLocalizedMessage());
       elogger.error("ERROR", e);
@@ -111,6 +117,7 @@ public class ArticleController {
   @RequestMapping(value = "/admin/article/{id}/update", method = RequestMethod.POST)
   public String update(@PathVariable Long id, @RequestParam String title,
           @RequestParam String html, @RequestParam(required = false) Integer top, 
+          @RequestParam(required = false) Integer hidden,
           @RequestParam(required = false) List<Long> tagIds) {
     String result = "redirect:/admin/article"; 
     try {
@@ -122,7 +129,12 @@ public class ArticleController {
       } else {
         checkArgument(top == DadooConstant.TOP_N || top == DadooConstant.TOP_Y);
       } 
-      this.articleBO.updateById(id, title, html, top, tagIds);
+      if (hidden == null) {
+        hidden = DadooConstant.HIDDEN_N;
+      } else {
+        checkArgument(hidden == DadooConstant.HIDDEN_N || hidden == DadooConstant.HIDDEN_Y);
+      }
+      this.articleBO.updateById(id, title, html, top, hidden, tagIds);
     } catch (Exception e) {
       logger.error(e.getLocalizedMessage());
       elogger.error("ERROR", e);

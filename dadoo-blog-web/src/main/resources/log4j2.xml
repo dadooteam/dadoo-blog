@@ -40,7 +40,7 @@ and open the template in the editor.
       <AppenderRef ref="Console"/>
       <AppenderRef ref="ControllerRollingFile"/>
     </Logger>
-    <Logger name="org.springframework" level="WARN" additivity="false">
+    <Logger name="org.springframework.jdbc" level="TRACE" additivity="false">
       <AppenderRef ref="Console"/>
       <AppenderRef ref="SpringRollingFile"/>
     </Logger>
