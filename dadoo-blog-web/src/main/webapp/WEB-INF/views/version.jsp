@@ -94,6 +94,13 @@
                 <li>#improve 删除无用代码</li>
               </ol>
             </li>
+            <li class="list-group-item">
+              <h3 class="list-group-item-heading"><span class="label label-info">0.4</span><small class="pull-right">更新时间:2015-08-07</small></h3>
+              <ol class="version-list">
+                <li>#improve 将隐藏和置顶放一排</li>
+                <li>#bugfix  恢复增加标签功能</li>
+              </ol>
+            </li>
           </ul>
         </div>
       </div>

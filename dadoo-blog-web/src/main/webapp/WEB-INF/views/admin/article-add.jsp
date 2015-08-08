@@ -30,7 +30,7 @@
           </div>
           <div class="form-group">
             <label for="tagIds">标签</label>
-            <select id="tagIds" name="tagIds" multiple class="form-control">
+            <select id="tagIds" name="tagIds" multiple class="form-control" size="8">
               <% if (tags != null) { %>
                 <% for (Tag tag : tags) { %>
                   <option value="<%= tag.getId() %>"><%= tag.getName() %></option>
@@ -43,8 +43,6 @@
               <input type="checkbox" name="top" value="2">
               置顶
             </label>
-          </div>
-          <div class="form-group">
             <label>
               <input type="checkbox" name="hidden" value="2">
               隐藏

@@ -7,7 +7,6 @@
 package im.dadoo.blog.biz.configuration;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.zaxxer.hikari.HikariDataSource;
 import im.dadoo.blog.biz.bo.FileBO;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -20,10 +19,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /**
  *
- * @author shuwen.zsw
+ * @author codekitten
  */
 @Configuration
-@PropertySource("file:C:/config/dadooblog/config.properties")
+@PropertySource("file:/Users/codekitten/config/dadooblog/config.properties")
 @ComponentScan("im.dadoo.blog.biz")
 public class BizContext {
   
@@ -38,17 +37,6 @@ public class BizContext {
     dataSource.setPassword(this.env.getProperty("db.password"));
     return dataSource;
   }
-  
-//  @Bean(destroyMethod = "close")
-//  public DataSource dataSource() {
-//    HikariDataSource dataSource = new HikariDataSource();
-//    dataSource.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
-//    dataSource.setJdbcUrl("jdbc:mysql://202.114.18.242:33066/dadooblog");
-//    dataSource.setUsername("root");
-//    dataSource.setPassword("dadoo2012dadoo");
-//    dataSource.setConnectionTimeout(Long.MAX_VALUE);
-//    return dataSource;
-//  }
   
   @Bean
   public NamedParameterJdbcTemplate jdbcTemplate() {

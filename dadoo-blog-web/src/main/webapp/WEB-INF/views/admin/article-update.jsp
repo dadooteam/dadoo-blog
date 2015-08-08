@@ -30,7 +30,7 @@
           </div>
           <div class="form-group">
             <label for="tagIds">标签</label>
-            <select id="tagIds" name="tagIds" multiple class="form-control">
+            <select id="tagIds" name="tagIds" multiple class="form-control" size="8">
               <% if (tags != null) { %>
                 <% for (Tag tag : tags) { %>
                   <% Boolean flag = false; %>
@@ -56,8 +56,6 @@
               <% } %>
               置顶
             </label>
-          </div>
-          <div class="form-group">
             <label>
               <% if(articleDTO.getArticle().getHidden() == DadooConstant.HIDDEN_Y) { %>
                 <input type="checkbox" name="hidden" checked value="2">

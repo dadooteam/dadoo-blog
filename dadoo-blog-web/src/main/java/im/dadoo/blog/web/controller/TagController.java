@@ -38,7 +38,7 @@ public class TagController {
     String result = "redirect:/admin/tag";
     try {
       checkArgument(StringUtils.isNotBlank(name));
-      checkArgument(this.tagBO.findByName(name) != null, String.format("name{%s} is existed", name));
+      checkArgument(this.tagBO.findByName(name) == null, String.format("name{%s} is existed", name));
       this.tagBO.insert(name);
     } catch (Exception e) {
       logger.error(e.getLocalizedMessage());

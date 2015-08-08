@@ -13,16 +13,12 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import java.io.File;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author codekitten
  */
 public class FileBO {
-
-  private static final Logger logger = LoggerFactory.getLogger(FileBO.class);
 
   private final Auth auth;
 
@@ -56,7 +52,6 @@ public class FileBO {
       System.out.println(response.bodyString());
       result = this.root + key;
     } catch (QiniuException e) {
-      logger.error(e.response.toString());
       throw e;
     } catch (Exception e) {
       throw e;
