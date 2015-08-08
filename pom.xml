@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>im.dadoo</groupId>
   <artifactId>dadoo-blog</artifactId>
-  <version>0.4</version>
+  <version>0.5</version>
   <packaging>pom</packaging>
   <modules>
     <module>dadoo-blog-domain</module>

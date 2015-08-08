@@ -4,7 +4,7 @@
   <parent>
     <groupId>im.dadoo</groupId>
     <artifactId>dadoo-blog</artifactId>
-    <version>0.4</version>
+    <version>0.5</version>
   </parent>
   <artifactId>dadoo-blog-domain</artifactId>
   <packaging>jar</packaging>
