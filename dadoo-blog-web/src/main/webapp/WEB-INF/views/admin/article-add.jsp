@@ -49,7 +49,7 @@
           </div>
           <div class="form-group">
             <label for="html">内容(markdown)</label>
-            <textarea name="content" data-provide="markdown" rows="15" class="md-input" style="resize: none; display: block;"></textarea>
+            <textarea id="html" name="html" class="form-control" data-provide="markdown" rows="15"></textarea>
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-default">保存</button>
