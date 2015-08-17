@@ -6,9 +6,9 @@
 package im.dadoo.blog.web.ao;
 
 import im.dadoo.blog.biz.bo.FileBO;
+import im.dadoo.blog.domain.QiniuFile;
 import java.io.File;
-import java.io.IOException;
-import java.security.MessageDigest;
+import java.util.List;
 import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,5 +41,13 @@ public class FileAO {
       logger.warn("file is null or empty");
     }
     return result;
+  }
+  
+  public List<QiniuFile> page(int pagecount, int pagesize) {
+    return this.fileBO.page(pagecount, pagesize);
+  }
+  
+  public void delete(String key) throws Exception {
+    this.fileBO.delete(key);
   }
 }

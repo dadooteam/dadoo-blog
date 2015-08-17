@@ -8,14 +8,19 @@
 <meta name="author" content="dadooteam">
 <title><%= request.getParameter("title") %> &nbsp; | &nbsp; <%= session.getAttribute("header") %></title>
 
-<link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css" />
+<link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/bootstrap-markdown/2.9.0/css/bootstrap-markdown.min.css" rel="stylesheet">
 <link rel="stylesheet/less" href="/resources/less/style.less" />
+
 <!--[if lt IE 9]>
-  <script src="http://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-  <script src="http://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+  <script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+  <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<script src="http://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script src="http://cdn.staticfile.org/less.js/1.7.0/less.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/less.js/2.5.1/less.min.js"></script>
+
+<script src="//cdn.bootcss.com/bootstrap-markdown/2.9.0/js/bootstrap-markdown.min.js"></script>
+<script src="//cdn.bootcss.com/markdown.js/0.5.0/markdown.min.js"></script>
 

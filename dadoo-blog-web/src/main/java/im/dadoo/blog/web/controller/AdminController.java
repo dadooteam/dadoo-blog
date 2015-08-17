@@ -13,7 +13,9 @@ import im.dadoo.blog.biz.bo.LinkBO;
 import im.dadoo.blog.biz.bo.TagBO;
 import im.dadoo.blog.biz.dto.ArticleDTO;
 import im.dadoo.blog.domain.Link;
+import im.dadoo.blog.domain.QiniuFile;
 import im.dadoo.blog.domain.Tag;
+import im.dadoo.blog.web.ao.FileAO;
 import java.util.List;
 import javax.annotation.Resource;
 import org.slf4j.Logger;
@@ -23,6 +25,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -43,6 +46,9 @@ public class AdminController {
   
   @Resource
   private LinkBO linkBO;
+  
+  @Resource
+  private FileAO fileAO;
   
   @RequestMapping(value = "/admin", method = RequestMethod.GET)
   public String getAdminPage() {
@@ -131,5 +137,32 @@ public class AdminController {
       result = "redirect:/404";
     }
     return result;
+  }
+  
+  @RequestMapping(value = "/admin/media", method = RequestMethod.GET)
+  public String getMediaAdminPage(ModelMap map, 
+          @RequestParam(required = false) Integer pagecount,
+          @RequestParam(required = false) Integer pagesize) {
+    String result = "admin/media";
+    if (pagecount == null) {
+      pagecount = 1;
+    }
+    if (pagesize == null) {
+      pagesize = 20;
+    }
+    try {
+      List<QiniuFile> files = this.fileAO.page(pagecount, pagesize);
+      map.addAttribute("files", files);
+    } catch (Exception e) {
+      logger.error(e.getLocalizedMessage());
+      elogger.error(this.toString(), e);
+      result = "redirect:/404";
+    }
+    return result;
+  }
+  
+  @RequestMapping(value = "/admin/media/add", method = RequestMethod.GET)
+  public String getMediaAddAdminPage(ModelMap map) {
+    return "admin/media-add";
   }
 }

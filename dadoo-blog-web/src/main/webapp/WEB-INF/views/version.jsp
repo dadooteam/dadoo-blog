@@ -101,6 +101,15 @@
                 <li>#bugfix  恢复增加标签功能</li>
               </ol>
             </li>
+            <li class="list-group-item">
+              <h3 class="list-group-item-heading"><span class="label label-info">0.5</span><small class="pull-right">更新时间:2015-08-20</small></h3>
+              <ol class="version-list">
+                <li>#improve 运行环境升级到java8</li>
+                <li>#improve springframework升级到4.2.0</li>
+                <li>#feature 增加图片管理功能</li>
+                <li>#feature 将文章编辑改成markdown</li>
+              </ol>
+            </li>
           </ul>
         </div>
       </div>

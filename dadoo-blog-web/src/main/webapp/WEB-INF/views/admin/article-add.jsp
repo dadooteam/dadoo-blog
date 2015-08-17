@@ -13,7 +13,6 @@
   <jsp:include page="../partial/head.jsp" flush="true">
     <jsp:param name="title" value="新文章" />
   </jsp:include>
-  <script src="http://cdn.bootcss.com/ckeditor/4.3.2/ckeditor.js"></script>
 </head>
 <body>
   <jsp:include page="../partial/header.jsp" flush="true" />
@@ -49,8 +48,8 @@
             </label>
           </div>
           <div class="form-group">
-            <label for="html">内容</label>
-            <textarea id="html" name="html" class="form-control" rows="15"></textarea>
+            <label for="html">内容(markdown)</label>
+            <textarea name="content" data-provide="markdown" rows="15" class="md-input" style="resize: none; display: block;"></textarea>
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-default">保存</button>
@@ -62,9 +61,5 @@
   <jsp:include page="../partial/footer.jsp" flush="true" />
   <script>
     $("#admin-article-li").addClass("active");
-    CKEDITOR.replace("html",{
-      uiColor:"#9AB8F3",
-      filebrowserUploadUrl: "/api/upload"
-    });
   </script>
 </body>
