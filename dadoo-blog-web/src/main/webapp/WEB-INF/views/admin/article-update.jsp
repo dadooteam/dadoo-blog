@@ -78,6 +78,5 @@
   <jsp:include page="../partial/footer.jsp" flush="true" />
   <script>
     $("#admin-article-li").addClass("active");
-    $("#html").html(markdown.toHTML($("html").text()));
   </script>
 </body>
