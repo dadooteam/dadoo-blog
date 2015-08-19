@@ -6,7 +6,11 @@
   <artifactId>dadoo-blog</artifactId>
   <version>0.5</version>
   <packaging>pom</packaging>
-  <modules></modules>
+  <modules>
+    <module>dadoo-blog-domain</module>
+    <module>dadoo-blog-biz</module>
+    <module>dadoo-blog-web</module>
+  </modules>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
