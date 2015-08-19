@@ -22,7 +22,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.tuple.Pair;
-import org.jsoup.Jsoup;
 import org.springframework.stereotype.Service;
 
 /**
@@ -41,12 +40,11 @@ public class ArticleBO {
   @Resource
   private TagArticleDAO taDAO;
 
-  public void insert(String title, String html, int top, int hidden, List<Long> tagIds) {
-    String text = Jsoup.parse(html).text();
+  public void insert(String title, String content, String html, int top, int hidden, List<Long> tagIds) {
     Article article = new Article();
     article.setTitle(title);
     article.setHtml(html);
-    article.setText(text);
+    article.setContent(content);
     article.setGmtCreate(System.currentTimeMillis());
     article.setClick(0);
     article.setTop(top);
@@ -65,14 +63,13 @@ public class ArticleBO {
     }
   }
 
-  public void updateById(long id, String title, String html, int top, int hidden, List<Long> tagIds) {
+  public void updateById(long id, String title, String content, String html, int top, int hidden, List<Long> tagIds) {
     checkArgument(id > 0L);
-    String text = Jsoup.parse(html).text();
     Article article = this.articleDAO.findById(id);
     if (article != null) {
       article.setTitle(title);
       article.setHtml(html);
-      article.setText(text);
+      article.setContent(content);
       article.setTop(top);
       article.setHidden(hidden);
       this.articleDAO.updateById(article);
