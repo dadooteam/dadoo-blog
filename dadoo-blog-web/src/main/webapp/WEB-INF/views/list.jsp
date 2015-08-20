@@ -55,11 +55,11 @@
               </h6>
             </div>
             <div class="panel-body">
-              <% if (articleDTO.getArticle().getText().length() < 245) { %>
-                <%= articleDTO.getArticle().getText() %>
+              <% if (articleDTO.getArticle().getContent().length() < 245) { %>
+                <%= articleDTO.getArticle().getContent() %>
                 <div class="read-more"><a class="btn btn-default btn-xs" href="/article/<%= articleDTO.getArticle().getId() %>">Read More</a></div>
               <% } else { %>
-                <%= articleDTO.getArticle().getText().substring(0, 245) %>
+                <%= articleDTO.getArticle().getContent().substring(0, 245) %>
                 <div class="read-more"><a class="btn btn-default btn-xs" href="/article/<%= articleDTO.getArticle().getId() %>">Read More</a></div>
               <% } %>
             </div>
