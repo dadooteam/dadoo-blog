@@ -83,8 +83,7 @@
   $(document).ready(function(){
   	$("#admin-article-li").addClass("active");
   	$("#save-button").click(function(e){
-  		alert(markdown.toHTML($("#content").text()));
-  		$("#html").val(markdown.toHTML($("#content").text()));
+  		$("#html").val(markdown.toHTML($("#content").val()));
   	});
   });
   </script>

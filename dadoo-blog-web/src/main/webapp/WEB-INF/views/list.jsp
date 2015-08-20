@@ -1,6 +1,6 @@
 <%@page language="java" contentType="text/html;charset=UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %> 
-<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*,im.dadoo.blog.biz.dto.*,im.dadoo.blog.cons.*" %>
+<%@page import="java.util.*,im.dadoo.blog.domain.*,org.apache.commons.lang3.time.*,org.apache.commons.lang3.tuple.*,im.dadoo.blog.biz.dto.*,im.dadoo.blog.cons.*,org.jsoup.Jsoup" %>
 
 <%
   List<ArticleDTO> articleDTOs = (List<ArticleDTO>)request.getAttribute("articleDTOs");
@@ -55,11 +55,11 @@
               </h6>
             </div>
             <div class="panel-body">
-              <% if (articleDTO.getArticle().getContent().length() < 245) { %>
-                <%= articleDTO.getArticle().getContent() %>
+              <% if (Jsoup.parse(articleDTO.getArticle().getHtml()).text().length() < 245) { %>
+                <%= Jsoup.parse(articleDTO.getArticle().getHtml()).text() %>
                 <div class="read-more"><a class="btn btn-default btn-xs" href="/article/<%= articleDTO.getArticle().getId() %>">Read More</a></div>
               <% } else { %>
-                <%= articleDTO.getArticle().getContent().substring(0, 245) %>
+                <%= Jsoup.parse(articleDTO.getArticle().getHtml()).text().substring(0, 245) %>
                 <div class="read-more"><a class="btn btn-default btn-xs" href="/article/<%= articleDTO.getArticle().getId() %>">Read More</a></div>
               <% } %>
             </div>
