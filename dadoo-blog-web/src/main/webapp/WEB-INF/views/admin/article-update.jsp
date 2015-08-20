@@ -69,7 +69,10 @@
             <textarea id="content" name="content" class="form-control" data-provide="markdown" rows="15"><%= articleDTO.getArticle().getContent() %></textarea>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-default">保存</button>
+            <button id="save-button" type="submit" class="btn btn-default">保存</button>
+          </div>
+          <div class="form-group">
+            <input id="html" name="html" type="hidden" class="form-control">
           </div>
         </form>
       </div>
@@ -77,6 +80,12 @@
   </div>
   <jsp:include page="../partial/footer.jsp" flush="true" />
   <script>
-    $("#admin-article-li").addClass("active");
+  $(document).ready(function(){
+  	$("#admin-article-li").addClass("active");
+  	$("#save-button").click(function(e){
+  		alert(markdown.toHTML($("#content").text()));
+  		$("#html").val(markdown.toHTML($("#content").text()));
+  	});
+  });
   </script>
 </body>

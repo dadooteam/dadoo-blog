@@ -89,14 +89,14 @@ public class ArticleController {
   @RequestMapping(value = "/admin/article/add", method = RequestMethod.POST)
   public String insert(@RequestParam String title, 
           @RequestParam String html,
-          @RequestParam String markdown,
+          @RequestParam String content,
           @RequestParam(required = false) Integer top,
           @RequestParam(required = false) Integer hidden,
           @RequestParam(required = false) List<Long> tagIds) {
     String result = "redirect:/admin/article";
     try {
       checkNotNull(title);
-      checkNotNull(markdown);
+      checkNotNull(content);
       checkNotNull(html);
       if (top == null) {
         top = DadooConstant.TOP_N;
@@ -108,7 +108,7 @@ public class ArticleController {
       } else {
         checkArgument(hidden == DadooConstant.HIDDEN_N || hidden == DadooConstant.HIDDEN_Y);
       }
-      this.articleBO.insert(title, markdown, html, top, hidden, tagIds);
+      this.articleBO.insert(title, content, html, top, hidden, tagIds);
     } catch (Exception e) {
       logger.error(e.getLocalizedMessage());
       elogger.error("ERROR", e);
@@ -119,7 +119,7 @@ public class ArticleController {
 
   @RequestMapping(value = "/admin/article/{id}/update", method = RequestMethod.POST)
   public String update(@PathVariable Long id, @RequestParam String title,
-          @RequestParam String html, @RequestParam String markdown,
+          @RequestParam String html, @RequestParam String content,
           @RequestParam(required = false) Integer top, 
           @RequestParam(required = false) Integer hidden,
           @RequestParam(required = false) List<Long> tagIds) {
@@ -127,7 +127,7 @@ public class ArticleController {
     try {
       checkArgument(id > 0L);
       checkNotNull(title);
-      checkNotNull(markdown);
+      checkNotNull(content);
       checkNotNull(html);
       if (top == null) {
         top = DadooConstant.TOP_N;
@@ -139,7 +139,7 @@ public class ArticleController {
       } else {
         checkArgument(hidden == DadooConstant.HIDDEN_N || hidden == DadooConstant.HIDDEN_Y);
       }
-      this.articleBO.updateById(id, title, markdown, html, top, hidden, tagIds);
+      this.articleBO.updateById(id, title, content, html, top, hidden, tagIds);
     } catch (Exception e) {
       logger.error(e.getLocalizedMessage());
       elogger.error("ERROR", e);
