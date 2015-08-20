@@ -43,7 +43,7 @@
                 </span>
               </h6>
             </div>
-            <div id="main-content" class="panel-body"><%= articleDTO.getArticle().getHtml() %></div>
+            <div class="panel-body"><%= articleDTO.getArticle().getHtml() %></div>
           </div>
           <div>
             <% if (pn != null) { %>
@@ -92,6 +92,6 @@
       s.src = '//' + disqus_shortname + '.disqus.com/count.js';
       (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
   }());
-  $("#main-content").html(markdown.toHTML($("#main-content").text()));
+//  $("#main-content").html(markdown.toHTML($("#main-content").text()));
   </script>
 </body>
