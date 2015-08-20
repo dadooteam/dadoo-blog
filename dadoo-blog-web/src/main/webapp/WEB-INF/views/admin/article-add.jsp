@@ -48,11 +48,14 @@
             </label>
           </div>
           <div class="form-group">
-            <label for="html">内容(markdown)</label>
-            <textarea id="html" name="html" class="form-control" data-provide="markdown" rows="15"></textarea>
+            <label for="content">内容(markdown)</label>
+            <textarea id="content" name="content" class="form-control" data-provide="markdown" rows="15"></textarea>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-default">保存</button>
+            <input id="html" name="html" type="hidden" class="form-control">
+          </div>
+          <div class="form-group">
+            <button id="save-button" type="submit" class="btn btn-default">保存</button>
           </div>
         </form>
       </div>
@@ -60,6 +63,11 @@
   </div>
   <jsp:include page="../partial/footer.jsp" flush="true" />
   <script>
-    $("#admin-article-li").addClass("active");
+  	$(document).ready(function(){
+	  	$("#admin-article-li").addClass("active");
+	  	$("#save-button").click(function(e){
+	  		$("#html").val(markdown.toHTML($("#content").val()));
+	  	});
+	  });
   </script>
 </body>

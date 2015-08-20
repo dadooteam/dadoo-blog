@@ -22,7 +22,7 @@ public class Article implements Serializable {
 
   private String html;
 
-  private String text;
+  private String content;
 
   private int click;
   
@@ -54,12 +54,12 @@ public class Article implements Serializable {
     this.html = html;
   }
 
-  public String getText() {
-    return text;
+  public String getContent() {
+    return content;
   }
 
-  public void setText(String text) {
-    this.text = text;
+  public void setContent(String content) {
+    this.content = content;
   }
 
   public long getGmtCreate() {
@@ -96,7 +96,7 @@ public class Article implements Serializable {
 
   @Override
   public String toString() {
-    return "Article{" + "id=" + id + ", gmtCreate=" + gmtCreate + ", title=" + title + ", html=" + html + ", text=" + text + ", click=" + click + ", top=" + top + ", hidden=" + hidden + '}';
+    return "Article{" + "id=" + id + ", gmtCreate=" + gmtCreate + ", title=" + title + ", html=" + html + ", content=" + content + ", click=" + click + ", top=" + top + ", hidden=" + hidden + '}';
   }
 
 }
