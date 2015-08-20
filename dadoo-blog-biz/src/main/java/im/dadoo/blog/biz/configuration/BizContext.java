@@ -22,8 +22,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
  * @author codekitten
  */
 @Configuration
-@PropertySource("file:C:/config/dadooblog/config.properties")
-//@PropertySource("file:/Users/codekitten/config/dadooblog/config.properties")
+//@PropertySource("file:C:/config/dadooblog/config.properties")
+@PropertySource("file:/Users/codekitten/config/dadooblog/config.properties")
 @ComponentScan("im.dadoo.blog.biz")
 public class BizContext {
   

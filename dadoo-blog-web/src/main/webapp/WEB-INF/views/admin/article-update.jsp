@@ -65,8 +65,8 @@
             </label>
           </div>
           <div class="form-group">
-            <label for="html">内容(markdown)</label>
-            <textarea id="html" name="html" class="form-control" data-provide="markdown" rows="15"><%= articleDTO.getArticle().getHtml() %></textarea>
+            <label for="content">内容(markdown)</label>
+            <textarea id="content" name="content" class="form-control" data-provide="markdown" rows="15"><%= articleDTO.getArticle().getContent() %></textarea>
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-default">保存</button>

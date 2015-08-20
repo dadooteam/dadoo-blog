@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author shuwen.zsw
+ * @author codekitten
  */
 @Component
 public class ArticleRowMapper implements RowMapper<Article> {

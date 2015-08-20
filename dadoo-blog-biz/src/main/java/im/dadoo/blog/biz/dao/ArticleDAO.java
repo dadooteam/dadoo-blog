@@ -28,14 +28,14 @@ import org.springframework.stereotype.Repository;
 public class ArticleDAO {
 
   private static final String INSERT_SQL
-          = "INSERT INTO t_article(gmt_create,title,html,markdown,click,top,hidden) "
-          + "VALUES(:gmt_create,:title,:html,:markdown,:click,:top,:hidden)";
+          = "INSERT INTO t_article(gmt_create,title,html,content,click,top,hidden) "
+          + "VALUES(:gmt_create,:title,:html,:content,:click,:top,:hidden)";
 
   private static final String UPDATE_CLICK_SQL
           = "UPDATE t_article SET click=click+1 WHERE id=:id";
 
   private static final String UPDATE_SQL
-          = "UPDATE t_article SET title=:title,html=:html,markdown=:markdown,top=:top,hidden=:hidden "
+          = "UPDATE t_article SET title=:title,html=:html,content=:content,top=:top,hidden=:hidden "
           + "WHERE id=:id";
 
   private static final String DELETE_BY_ID_SQL
@@ -61,7 +61,7 @@ public class ArticleDAO {
 
   private static final String PAGE_BY_TAG_ID_PAGINATION_SQL
           = "SELECT t_article.id AS id,t_article.title AS title,t_article.html AS html, "
-          + "t_article.markdown AS markdown,t_article.gmt_create AS gmt_create,t_article.top AS top, "
+          + "t_article.content AS content,t_article.gmt_create AS gmt_create,t_article.top AS top, "
           + "t_article.click AS click,t_article.hidden AS hidden FROM t_article "
           + "RIGHT OUTER JOIN t_tag_article ON t_article.id=t_tag_article.article_id "
           + "WHERE t_tag_article.tag_id=:tag_id AND t_article.hidden=1 "
@@ -89,7 +89,7 @@ public class ArticleDAO {
     sps.addValue("gmt_create", article.getGmtCreate());
     sps.addValue("title", article.getTitle());
     sps.addValue("html", article.getHtml());
-    sps.addValue("markdown", article.getMarkdown());
+    sps.addValue("content", article.getContent());
     sps.addValue("click", article.getClick());
     sps.addValue("top", article.getTop());
     sps.addValue("hidden", article.getHidden());
@@ -104,7 +104,7 @@ public class ArticleDAO {
     sps.addValue("id", article.getId());
     sps.addValue("title", article.getTitle());
     sps.addValue("html", article.getHtml());
-    sps.addValue("markdown", article.getMarkdown());
+    sps.addValue("content", article.getContent());
     sps.addValue("top", article.getTop());
     sps.addValue("hidden", article.getHidden());
     this.jdbcTemplate.update(UPDATE_SQL, sps);
